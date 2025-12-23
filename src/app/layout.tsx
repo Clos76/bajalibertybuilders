@@ -1,5 +1,6 @@
 import "@/src/app/globals.css";
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Custom Beachfront Homes in Rosarito & Ensenada",
@@ -14,7 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="eng">
-      <body className="bg-white text-gray-900 antialiased">{children}</body>
+      <body className="bg-white text-gray-900 antialiased">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
