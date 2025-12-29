@@ -4,6 +4,8 @@ import Container from "../ui/Container";
 
 import React, { useState } from "react";
 import Link from "next/link";
+import AssessmentCTA from "./AssessmentCTA";
+import Button from "../ui/Button";
 
 const PROCESS_STEPS = [
   {
@@ -377,20 +379,40 @@ export default function ProcessSection() {
         {/* Bottom CTA */}
         <div className="text-center mt-16 sm:mt-20">
           <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-            See How We Build Your Home, Step by Step
+            Ready to Start Your Build Journey?
           </h3>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Download our detailed planning guide to learn more about timelines,
-            costs, and what to expect at each phase.
+            Take our 60-second assessment to get your personalized cost estimate
+            and timeline—plus see if you qualify for our 2025 build slots.
           </p>
-          <button className="inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-lg rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
-            <span>📥</span>
-            <span>
-              <Link href="#contact">
-                Would you like to see how we can help you in your project?
-              </Link>
-            </span>
-          </button>
+        </div>
+
+        {/* Assessment CTA - HERO STYLE */}
+        <div className="mt-12 -mx-8 sm:-mx-12 lg:-mx-16 px-4">
+          <div className="relative rounded-3xl p-[2px] bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500">
+            {/* Glowing effect - outside the border */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 rounded-3xl blur-xl opacity-60 animate-pulse" />
+
+            {/* Inner content */}
+            <div className="relative bg-gradient-to-r from-gray-900 to-black rounded-3xl p-10 sm:p-14 lg:p-20 text-center">
+              <div className="text-5xl sm:text-6xl mb-6">🏖️</div>
+              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+                Ready to See If You Qualify?
+              </h3>
+              <p className="text-xl sm:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Find out in 2 minutes
+              </p>
+              <Button
+                href="/assessment"
+                className="text-xl py-6 px-12 shadow-2xl shadow-amber-500/50"
+              >
+                Start Your Free Assessment →
+              </Button>
+              <p className="text-sm text-gray-500 mt-6">
+                ✨ 2,847 homeowners have taken this assessment
+              </p>
+            </div>
+          </div>
         </div>
       </Container>
     </section>

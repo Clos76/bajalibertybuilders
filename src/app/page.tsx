@@ -10,6 +10,7 @@ import Testimonials from "@/src/components/sections/Testimonials";
 import FAQ from "@/src/components/sections/FAQ";
 import FinalCTA from "@/src/components/sections/FinalCTA";
 import Footer from "@/src/components/layout/Footer";
+import AboutSection from "@/src/components/sections/AboutSection";
 
 export default function HomePage() {
   return (
@@ -18,6 +19,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <TrustBar />
+        <AboutSection />
         <Portfolio />
         <Lifestyle />
         <ForeignBuyers />

@@ -119,7 +119,7 @@ export default function ForeignBuyers() {
   return (
     <section
       id="for-us-canadian-buyers"
-      className="relative bg-gradient-to-b from-amber-50 via-orange-100 to-white py-16 sm:py-20 lg:py-28 overflow-hidden"
+      className="relative bg-gradient-to-b from-amber-50 via-orange-100 to-white overflow-hidden"
     >
       {/* Enhanced Decorative Background */}
       <div className="absolute inset-0 pointer-events-none">
