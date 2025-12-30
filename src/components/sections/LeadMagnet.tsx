@@ -156,8 +156,62 @@ export default function LeadMagnetSection() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = () => {
-    // Security: Rate limiting check
+  const calculateLeadScore = () => {
+    let score = 0;
+
+    // ✅ Timeline weighting
+    switch (formData.timeline) {
+      case "0-6":
+        score += 40; // ready to start soon
+        break;
+      case "6-12":
+        score += 25; // planning ahead
+        break;
+      case "12+":
+        score += 10; // future project
+        break;
+      case "research":
+        score += 5; // just researching
+        break;
+      default:
+        score += 0; // missing
+    }
+
+    // ✅ Budget weighting
+    switch (formData.budget) {
+      case "200-400K":
+      case "500-700k":
+      case "700k-1m":
+      case "1m-1.5m":
+        score += 20;
+        break;
+      case "flexible":
+        score += 10;
+        break;
+      default:
+        score += 0;
+    }
+
+    // ✅ Style preference weighting
+    const style = formData.style || "undecided";
+    if (
+      style === "california" ||
+      style === "mediterranean" ||
+      style === "modern"
+    ) {
+      score += 15;
+    }
+
+    // ✅ Optional: phone provided adds slight commitment signal
+    if (formData.phone) score += 5;
+
+    // ✅ Cap max score at 100
+    if (score > 100) score = 100;
+
+    return score;
+  };
+
+  const handleSubmit = async () => {
     if (isRateLimited()) {
       alert(
         "Too many submission attempts. Please wait a minute and try again."
@@ -165,31 +219,70 @@ export default function LeadMagnetSection() {
       return;
     }
 
-    // Validate form
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setIsSubmitting(true);
     setSubmitAttempts((prev) => prev + 1);
     setLastSubmitTime(Date.now());
 
-    // In production, send sanitized data to your backend
-    // Your backend should also validate and sanitize
-    const sanitizedData = {
-      name: sanitizeInput(formData.name),
-      email: sanitizeInput(formData.email),
-      timeline: sanitizeInput(formData.timeline),
-      budget: sanitizeInput(formData.budget),
-      style: sanitizeInput(formData.style),
-      phone: sanitizeInput(formData.phone),
-    };
+    try {
+      // Submit new lead - send fields as top-level properties
+      const response = await fetch("/api/submit-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: sanitizeInput(formData.name),
+          email: sanitizeInput(formData.email),
+          phone: sanitizeInput(formData.phone) || null,
+          timeline: sanitizeInput(formData.timeline),
+          budget: sanitizeInput(formData.budget) || null,
+          style: sanitizeInput(formData.style) || null,
+          source: "lead_magnet",
+          readiness_score: calculateLeadScore(),
+        }),
+      });
 
-    // Simulate form submission
-    setTimeout(() => {
+      const result = await response.json();
+
+      if (!result.success) {
+        if (result.status === "duplicate") {
+          alert(
+            "You already submitted this lead. Check your email for the guide!"
+          );
+          setIsSubmitted(true);
+          //reset form
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            timeline: "",
+            budget: "",
+            style: "",
+          });
+          setErrors({});
+        } else {
+          throw new Error(result.error || "Failed to submit");
+        }
+      } else {
+        setIsSubmitted(true);
+
+        //reset form
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          timeline: "",
+          budget: "",
+          style: "",
+        });
+        setErrors({});
+      }
+    } catch (err) {
+      console.error("Lead submission error:", err);
+      alert("Something went wrong. Please try again later.");
+    } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 1500);
+    }
   };
 
   if (isSubmitted) {
@@ -366,6 +459,9 @@ export default function LeadMagnetSection() {
                     placeholder="John Smith"
                     className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900"
                   />
+                  {errors.name && (
+                    <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                  )}
                 </div>
 
                 {/* Email - Required */}
@@ -385,6 +481,9 @@ export default function LeadMagnetSection() {
                     placeholder="john@example.com"
                     className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900"
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                  )}
                 </div>
 
                 {/* Project Timeline - Required */}
@@ -408,6 +507,11 @@ export default function LeadMagnetSection() {
                     <option value="12+">Future project (12+ months)</option>
                     <option value="research">Just researching</option>
                   </select>
+                  {errors.timeline && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.timeline}
+                    </p>
+                  )}
                 </div>
 
                 {/* Budget Range - Optional */}

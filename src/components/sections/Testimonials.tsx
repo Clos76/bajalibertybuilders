@@ -270,7 +270,7 @@ export default function Testimonials() {
               <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-lg rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
                 <span>📅</span>
                 <span>
-                  <Link href="#contact">Schedule Free Consultation</Link>
+                  <a href="#contact">Schedule Free Consultation</a>
                 </span>
               </button>
               <button className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 font-bold text-lg rounded-full border-2 border-gray-300 hover:border-blue-500 hover:text-blue-600 transition-all duration-300">

@@ -167,6 +167,11 @@ export default function BajaHomeAssessment() {
     if (cleaned.length > 15) return "Phone number is too long";
     return "";
   };
+  const hasValidPhoneForScoring = (phone) => {
+    if (!phone) return false;
+    const cleaned = phone.replace(/\D/g, "");
+    return cleaned.length >= 10 && cleaned.length <= 15;
+  };
 
   const formatPhoneNumber = (value) => {
     const cleaned = value.replace(/\D/g, "");
@@ -183,12 +188,14 @@ export default function BajaHomeAssessment() {
   };
 
   const handleAnswer = (questionId, value) => {
-    setAnswers({ ...answers, [questionId]: value });
+    const newAnswers = { ...answers, [questionId]: value };
+    setAnswers(newAnswers);
 
     if (step < questions.length - 1) {
       setTimeout(() => setStep(step + 1), 300);
     } else {
-      setTimeout(() => handleFinalSubmit(), 300);
+      // Pass the updated answers directly to avoid stale state
+      setTimeout(() => handleFinalSubmit(newAnswers), 300);
     }
   };
 
@@ -230,28 +237,48 @@ export default function BajaHomeAssessment() {
     handleAnswer("phone", formData.phone || "skipped");
   };
 
-  const handleFinalSubmit = async () => {
+  const handleFinalSubmit = async (finalAnswers = answers) => {
+    if (isSubmitting) return;
     setIsSubmitting(true);
     setGeneralError("");
 
     try {
-      // Simulate API call (replace with your actual API endpoint)
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      if (formData.website) {
+        console.log("Bot detected via honeypot");
+        setShowResults(true);
+        return;
+      }
 
-      // Here you would send data to your backend:
-      // const response = await fetch('/api/submit-assessment', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     name: formData.name,
-      //     email: formData.email,
-      //     phone: formData.phone,
-      //     answers: answers,
-      //     timestamp: new Date().toISOString()
-      //   })
-      // });
-      // if (!response.ok) throw new Error('Submission failed');
+      const response = await fetch("/api/submit-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          source: "construction",
+          answers: finalAnswers,
+          readiness_score: calculateResults(finalAnswers).readinessScore,
+        }),
+      });
 
+      const result = await response.json();
+      if (!response.ok || result.error) {
+        throw new Error(result.error || "Submission failed");
+      }
+
+      // Duplicate entries
+      if (result.status === "duplicate") {
+        setGeneralError(
+          "You've already submitted this form. We'll be in touch soon!"
+        );
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 3000);
+        return;
+      }
+
+      // Success - show results
       setShowResults(true);
     } catch (error) {
       setGeneralError(
@@ -263,19 +290,25 @@ export default function BajaHomeAssessment() {
     }
   };
 
-  const calculateResults = () => {
-    const budget = answers.budget;
-    const timeline = answers.timeline;
+  const calculateResults = (answersToScore = answers) => {
+    const budget = answersToScore.budget;
+    const timeline = answersToScore.timeline;
 
     let readinessScore = 0;
     let recommendation = "";
     let nextSteps = [];
 
-    if (answers.lotOwnership === "yes") readinessScore += 30;
+    if (answersToScore.lotOwnership === "yes") readinessScore += 30;
     if (timeline === "immediately" || timeline === "soon") readinessScore += 25;
     if (budget) readinessScore += 20;
-    if (answers.decisionMaker === "yes") readinessScore += 15;
-    readinessScore += 10;
+    if (answersToScore.decisionMaker === "yes") readinessScore += 15;
+    // Check if phone exists and is valid (not "skipped")
+    if (
+      answersToScore.phone &&
+      answersToScore.phone !== "skipped" &&
+      hasValidPhoneForScoring(answersToScore.phone)
+    )
+      readinessScore += 10;
 
     if (readinessScore >= 75) {
       recommendation = "You're Ready to Start Building!";
@@ -498,7 +531,7 @@ export default function BajaHomeAssessment() {
                 onChange={(e) =>
                   setFormData({ ...formData, website: e.target.value })
                 }
-                className="absolute  pointer-events-none"
+                className="absolute pointer-events-none"
                 tabIndex="-1"
                 autoComplete="off"
                 aria-hidden="true"
