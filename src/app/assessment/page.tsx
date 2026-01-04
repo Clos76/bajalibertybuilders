@@ -12,20 +12,49 @@ import {
   AlertCircle,
   Loader2,
 } from "lucide-react";
+import { z } from "zod";
+
+// Zod schema for validation
+const LeadSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  phone: z
+    .string()
+    .optional()
+    .refine(
+      (val) => {
+        if (!val) return true; // optional
+        const cleaned = val.replace(/\D/g, "");
+        return cleaned.length >= 10 && cleaned.length <= 15;
+      },
+      { message: "Invalid phone number" }
+    ),
+});
 
 export default function BajaHomeAssessment() {
   const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState({});
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    website: "", // Honeypot field
-  });
+  const [answers, setAnswers] = useState<{
+    lotOwnership?: string;
+    timeline?: string;
+    budget?: string;
+    homeSize?: string;
+    style?: string;
+    features?: string;
+    concerns?: string;
+    decisionMaker?: string;
+    email?: string;
+    phone?: string;
+    readiness_score?: number;
+    [key: string]: any;
+  }>({});
+
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
+  const [honeypot, setHoneypot] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const [showResults, setShowResults] = useState(false);
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [generalError, setGeneralError] = useState("");
 
   const questions = [
     {
@@ -142,173 +171,23 @@ export default function BajaHomeAssessment() {
     },
   ];
 
-  // Validation functions
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email) return "Email is required";
-    if (!emailRegex.test(email)) return "Please enter a valid email address";
-    if (email.length > 254) return "Email is too long";
-    return "";
-  };
-
-  const validateName = (name) => {
-    if (!name) return "Name is required";
-    if (name.length < 2) return "Name must be at least 2 characters";
-    if (name.length > 100) return "Name is too long";
-    if (!/^[a-zA-Z\s'-]+$/.test(name)) return "Please enter a valid name";
-    return "";
-  };
-
-  const validatePhone = (phone) => {
-    if (!phone) return ""; // Phone is optional
-    // Remove all non-numeric characters for validation
-    const cleaned = phone.replace(/\D/g, "");
-    if (cleaned.length < 10) return "Phone number must be at least 10 digits";
-    if (cleaned.length > 15) return "Phone number is too long";
-    return "";
-  };
-  const hasValidPhoneForScoring = (phone) => {
-    if (!phone) return false;
-    const cleaned = phone.replace(/\D/g, "");
-    return cleaned.length >= 10 && cleaned.length <= 15;
-  };
-
-  const formatPhoneNumber = (value) => {
-    const cleaned = value.replace(/\D/g, "");
-    const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,4})$/);
-    if (match) {
-      const formatted = [
-        match[1] ? `(${match[1]}` : "",
-        match[2] ? `) ${match[2]}` : "",
-        match[3] ? `-${match[3]}` : "",
-      ].join("");
-      return formatted;
-    }
-    return value;
-  };
-
-  const handleAnswer = (questionId, value) => {
-    const newAnswers = { ...answers, [questionId]: value };
-    setAnswers(newAnswers);
-
-    if (step < questions.length - 1) {
-      setTimeout(() => setStep(step + 1), 300);
-    } else {
-      // Pass the updated answers directly to avoid stale state
-      setTimeout(() => handleFinalSubmit(newAnswers), 300);
-    }
-  };
-
-  const handleEmailSubmit = () => {
-    setErrors({});
-    setGeneralError("");
-
-    // Check honeypot
-    if (formData.website) {
-      // Bot detected - fake success
-      console.log("Bot detected via honeypot");
-      setTimeout(() => setStep(step + 1), 300);
-      return;
-    }
-
-    const nameError = validateName(formData.name);
-    const emailError = validateEmail(formData.email);
-
-    if (nameError || emailError) {
-      setErrors({
-        name: nameError,
-        email: emailError,
-      });
-      return;
-    }
-
-    handleAnswer("email", formData.email);
-  };
-
-  const handlePhoneSubmit = () => {
-    setErrors({});
-    const phoneError = validatePhone(formData.phone);
-
-    if (phoneError) {
-      setErrors({ phone: phoneError });
-      return;
-    }
-
-    handleAnswer("phone", formData.phone || "skipped");
-  };
-
-  const handleFinalSubmit = async (finalAnswers = answers) => {
-    if (isSubmitting) return;
-    setIsSubmitting(true);
-    setGeneralError("");
-
-    try {
-      if (formData.website) {
-        console.log("Bot detected via honeypot");
-        setShowResults(true);
-        return;
-      }
-
-      const response = await fetch("/api/submit-lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          source: "construction",
-          answers: finalAnswers,
-          readiness_score: calculateResults(finalAnswers).readinessScore,
-        }),
-      });
-
-      const result = await response.json();
-      if (!response.ok || result.error) {
-        throw new Error(result.error || "Submission failed");
-      }
-
-      // Duplicate entries
-      if (result.status === "duplicate") {
-        setGeneralError(
-          "You've already submitted this form. We'll be in touch soon!"
-        );
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 3000);
-        return;
-      }
-
-      // Success - show results
-      setShowResults(true);
-    } catch (error) {
-      setGeneralError(
-        "Something went wrong. Please try again or call us at (858) 758-7768."
-      );
-      console.error("Submission error:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   const calculateResults = (answersToScore = answers) => {
-    const budget = answersToScore.budget;
-    const timeline = answersToScore.timeline;
-
     let readinessScore = 0;
     let recommendation = "";
-    let nextSteps = [];
+    let nextSteps: string[] = [];
 
     if (answersToScore.lotOwnership === "yes") readinessScore += 30;
-    if (timeline === "immediately" || timeline === "soon") readinessScore += 25;
-    if (budget) readinessScore += 20;
-    if (answersToScore.decisionMaker === "yes") readinessScore += 15;
-    // Check if phone exists and is valid (not "skipped")
     if (
-      answersToScore.phone &&
-      answersToScore.phone !== "skipped" &&
-      hasValidPhoneForScoring(answersToScore.phone)
+      answersToScore.timeline === "immediately" ||
+      answersToScore.timeline === "soon"
     )
-      readinessScore += 10;
+      readinessScore += 25;
+    if (answersToScore.budget) readinessScore += 20;
+    if (answersToScore.decisionMaker === "yes") readinessScore += 15;
+    if (answersToScore.phone) {
+      const cleaned = answersToScore.phone.replace(/\D/g, "");
+      if (cleaned.length >= 10 && cleaned.length <= 15) readinessScore += 10;
+    }
 
     if (readinessScore >= 75) {
       recommendation = "You're Ready to Start Building!";
@@ -337,6 +216,87 @@ export default function BajaHomeAssessment() {
     }
 
     return { readinessScore, recommendation, nextSteps };
+  };
+
+  const handleAnswer = (questionId: string, value: string) => {
+    const newAnswers = { ...answers, [questionId]: value };
+    setAnswers(newAnswers);
+    if (step < questions.length - 1) setTimeout(() => setStep(step + 1), 200);
+    else handleFinalSubmit(newAnswers);
+  };
+
+  const handleEmailSubmit = () => {
+    try {
+      const validated = LeadSchema.parse(formData);
+      setErrorMessage("");
+      handleAnswer("email", validated.email);
+    } catch (error: any) {
+      if (error instanceof z.ZodError) setErrorMessage(error.issues[0].message);
+      else setErrorMessage(error.message);
+    }
+  };
+
+  const handlePhoneSubmit = () => {
+    try {
+      const validated = LeadSchema.parse(formData);
+      setErrorMessage("");
+      handleAnswer("phone", validated.phone || "");
+    } catch (error: any) {
+      if (error instanceof z.ZodError) setErrorMessage(error.issues[0].message);
+      else setErrorMessage(error.message);
+    }
+  };
+
+  const handleFinalSubmit = async (finalAnswers = answers) => {
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      if (honeypot) {
+        console.log("Bot detected via honeypot");
+        setShowResults(true);
+        setStatus("success");
+        return;
+      }
+
+      const results = calculateResults(finalAnswers);
+
+      // Build payload for backend (UNCHANGED)
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || null,
+        answers: {
+          ...finalAnswers,
+          timeline: finalAnswers.timeline || null,
+          budget: finalAnswers.budget || null,
+          style: finalAnswers.style || null,
+          decisionMaker: finalAnswers.decisionMaker || null,
+          readiness_score: results.readinessScore,
+        },
+        honeypot,
+      };
+
+      const response = await fetch("/api/submit-lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Submission failed");
+
+      setStatus("success");
+      setShowResults(true);
+    } catch (error: any) {
+      console.error("Submission error:", error);
+      setStatus("error");
+      setErrorMessage(
+        error.message || "Something went wrong. Please try again."
+      );
+    }
   };
 
   const ProgressBar = () => (
@@ -417,7 +377,6 @@ export default function BajaHomeAssessment() {
               >
                 📅 Schedule Your Free Consultation
               </button>
-
               <button
                 onClick={() => (window.location.href = "/")}
                 className="block w-full bg-white/10 text-white font-bold text-lg py-5 px-8 rounded-xl hover:bg-white/20 transition-all border border-white/20"
@@ -451,18 +410,14 @@ export default function BajaHomeAssessment() {
           <p className="text-gray-400">
             10 quick questions · Instant results · No obligation
           </p>
-          <p className="text-sm text-amber-400 mt-2">
-            ✨ 2,847 homeowners have taken this assessment
-          </p>
         </div>
 
         <ProgressBar />
 
-        {/* General Error Message */}
-        {generalError && (
+        {errorMessage && (
           <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl flex items-start gap-3">
             <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
-            <p className="text-red-300 text-sm">{generalError}</p>
+            <p className="text-red-300 text-sm">{errorMessage}</p>
           </div>
         )}
 
@@ -484,13 +439,14 @@ export default function BajaHomeAssessment() {
             </div>
           </div>
 
+          {/* Choice question */}
           {currentQuestion.type === "choice" && (
             <div className="space-y-3">
-              {currentQuestion.options.map((option) => (
+              {currentQuestion.options?.map((option) => (
                 <button
                   key={option.value}
                   onClick={() => handleAnswer(currentQuestion.id, option.value)}
-                  disabled={isSubmitting}
+                  disabled={status === "loading"}
                   className="w-full group relative overflow-hidden bg-white/5 hover:bg-white/10 border border-white/10 hover:border-amber-500/50 rounded-xl p-5 text-left transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-amber-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="flex items-center gap-4">
@@ -499,7 +455,7 @@ export default function BajaHomeAssessment() {
                       {option.label}
                     </span>
                   </div>
-                  {isSubmitting && step === questions.length - 1 ? (
+                  {status === "loading" && step === questions.length - 1 ? (
                     <Loader2 className="absolute right-5 top-1/2 -translate-y-1/2 w-6 h-6 text-amber-400 animate-spin" />
                   ) : (
                     <ChevronRight className="absolute right-5 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-600 group-hover:text-amber-400 transition-all group-hover:translate-x-1" />
@@ -509,118 +465,69 @@ export default function BajaHomeAssessment() {
             </div>
           )}
 
+          {/* Email capture */}
           {currentQuestion.type === "email-capture" && (
             <div className="space-y-6">
-              <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-xl p-6 border border-amber-400/30">
-                <h3 className="text-lg font-semibold text-white mb-2">
-                  🎁 Unlock Your Instant Report:
-                </h3>
-                <ul className="space-y-2 text-gray-300 text-sm">
-                  <li>✓ Estimated project cost range</li>
-                  <li>✓ Realistic timeline breakdown</li>
-                  <li>✓ Personalized recommendations</li>
-                  <li>✓ Legal process overview</li>
-                </ul>
-              </div>
-
-              {/* Honeypot field - hidden from users, bots will fill it */}
               <input
                 type="text"
                 name="website"
-                value={formData.website}
-                onChange={(e) =>
-                  setFormData({ ...formData, website: e.target.value })
-                }
-                className="absolute pointer-events-none"
-                tabIndex="-1"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                style={{ position: "absolute", left: "-9999px" }}
+                tabIndex={-1}
                 autoComplete="off"
                 aria-hidden="true"
               />
-
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Full Name <span className="text-red-400">*</span>
+                  Full Name *
                 </label>
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) => {
-                    setFormData({ ...formData, name: e.target.value });
-                    if (errors.name) setErrors({ ...errors, name: "" });
-                  }}
-                  className={`w-full bg-white/10 border ${
-                    errors.name ? "border-red-500" : "border-white/20"
-                  } rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20`}
-                  placeholder="John Smith"
-                  maxLength="100"
+                  disabled={status === "loading"}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  className="w-full bg-white/10 border border-white/20 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
                 />
-                {errors.name && (
-                  <p className="mt-2 text-sm text-red-400 flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" />
-                    {errors.name}
-                  </p>
-                )}
               </div>
-
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Email Address <span className="text-red-400">*</span>
+                  Email Address *
                 </label>
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => {
-                    setFormData({ ...formData, email: e.target.value });
-                    if (errors.email) setErrors({ ...errors, email: "" });
-                  }}
-                  className={`w-full bg-white/10 border ${
-                    errors.email ? "border-red-500" : "border-white/20"
-                  } rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20`}
-                  placeholder="john@example.com"
-                  maxLength="254"
+                  disabled={status === "loading"}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  className="w-full bg-white/10 border border-white/20 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
                 />
-                {errors.email && (
-                  <p className="mt-2 text-sm text-red-400 flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" />
-                    {errors.email}
-                  </p>
-                )}
               </div>
-
               <button
                 onClick={handleEmailSubmit}
-                disabled={!formData.email || !formData.name || isSubmitting}
-                className="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-lg py-5 px-8 rounded-xl hover:from-amber-600 hover:to-orange-700 transition-all shadow-lg shadow-amber-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                disabled={
+                  !formData.email || !formData.name || status === "loading"
+                }
+                className="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-lg py-5 px-8 rounded-xl hover:from-amber-600 hover:to-orange-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                {isSubmitting ? (
+                {status === "loading" ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" />
                     Processing...
                   </>
                 ) : (
-                  "Continue to Get My Results →"
+                  "Continue →"
                 )}
               </button>
-
-              <p className="text-xs text-center text-gray-500">
-                🔒 Your information is secure. We'll never share it with third
-                parties.
-              </p>
             </div>
           )}
 
+          {/* Phone capture */}
           {currentQuestion.type === "phone-capture" && (
             <div className="space-y-6">
-              <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl p-6 border border-blue-400/30">
-                <h3 className="text-lg font-semibold text-white mb-2">
-                  📞 Want Expert Guidance?
-                </h3>
-                <p className="text-gray-300 text-sm">
-                  Get a personalized 15-minute call with our Baja build
-                  specialist to discuss your specific project.
-                </p>
-              </div>
-
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Phone Number (Optional)
@@ -628,77 +535,32 @@ export default function BajaHomeAssessment() {
                 <input
                   type="tel"
                   value={formData.phone}
-                  onChange={(e) => {
-                    const formatted = formatPhoneNumber(e.target.value);
-                    setFormData({ ...formData, phone: formatted });
-                    if (errors.phone) setErrors({ ...errors, phone: "" });
-                  }}
-                  className={`w-full bg-white/10 border ${
-                    errors.phone ? "border-red-500" : "border-white/20"
-                  } rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20`}
-                  placeholder="(858) 555-1234"
-                  maxLength="16"
+                  disabled={status === "loading"}
+                  placeholder="+1 (555) 123-4567"
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
+                  className="w-full bg-white/10 border border-white/20 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
                 />
-                {errors.phone && (
-                  <p className="mt-2 text-sm text-red-400 flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" />
-                    {errors.phone}
-                  </p>
+              </div>
+              <button
+                onClick={handlePhoneSubmit}
+                disabled={status === "loading"}
+                className="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-lg py-5 px-8 rounded-xl hover:from-amber-600 hover:to-orange-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {status === "loading" ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  "Continue →"
                 )}
-              </div>
-
-              <div className="space-y-3">
-                <button
-                  onClick={handlePhoneSubmit}
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-lg py-5 px-8 rounded-xl hover:from-amber-600 hover:to-orange-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Processing...
-                    </>
-                  ) : (
-                    <>
-                      {formData.phone
-                        ? "Yes, Call Me!"
-                        : "Skip - Continue to Results"}{" "}
-                      →
-                    </>
-                  )}
-                </button>
-              </div>
+              </button>
             </div>
           )}
         </div>
-
-        <div className="mt-8 text-center">
-          <div className="flex items-center justify-center gap-6 text-sm text-gray-400">
-            <div className="flex items-center gap-2">
-              <span className="text-amber-400">★★★★★</span>
-              <span>4.9/5 Rating</span>
-            </div>
-            <div>200+ Homes Built</div>
-            <div>🔒 Secure & Private</div>
-          </div>
-        </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.5s ease-out;
-        }
-      `}</style>
     </div>
   );
 }

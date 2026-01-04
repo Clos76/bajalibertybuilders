@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
+// Initialize Supabase client
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -10,24 +11,29 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
+    const source = req.headers.get("referer")?.includes("landing")
+      ? "landing_page"
+      : req.headers.get("referer")?.includes("referral")
+      ? "referral"
+      : "direct";
+
     const {
       name,
       email,
       phone,
-      source = "construction",
       answers,
       readiness_score,
-      // Add these for lead_magnet source
       timeline: directTimeline,
       budget: directBudget,
       style: directStyle,
+      decisionMaker: directDecisionMaker,
     } = body;
 
-    // Extract specific fields - check both answers object AND top-level fields
+    // Extract values, prioritizing direct fields over answers object
     const timeline = directTimeline || answers?.timeline || null;
     const budget = directBudget || answers?.budget || null;
     const style = directStyle || answers?.style || null;
-    const decisionMaker = answers?.decisionMaker || null;
+    const decisionMaker = directDecisionMaker || answers?.decisionMaker || null;
 
     // ----- Basic server-side validation -----
     if (!name || name.length < 2) {
@@ -62,25 +68,30 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // ----- Insert new lead -----
+    // ----- Insert new lead into Supabase -----
     const { data, error } = await supabase
       .from("leads")
       .insert({
         name,
         email: email.toLowerCase(),
         phone: formattedPhone,
-        timeline,
-        budget,
-        style,
-        source,
-        decision_maker: decisionMaker,
-        assessment_answers: answers || {},
-        readiness_score: readiness_score ?? null,
+        custom_fields: {
+          ...answers,
+          timeline,
+          budget,
+          style,
+          decision_maker: decisionMaker,
+          readiness_score: readiness_score ?? null,
+        },
+        tenant_id: process.env.NEXT_PUBLIC_TENANT_ID || null,
+        landing_page_id: process.env.NEXT_PUBLIC_LANDING_PAGE_ID || null,
+        ip_address: req.headers.get("x-forwarded-for") || null,
+        user_agent: req.headers.get("user-agent") || null,
         status: "new",
       })
       .select();
 
-    if (error) {
+    if (error || !data || data.length === 0) {
       console.error("Supabase insert error:", error);
       return NextResponse.json(
         { error: "Failed to save lead" },
@@ -88,20 +99,30 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // ----- Trigger n8n webhook -----
-    if (process.env.N8N_WEBHOOK_URL) {
-      try {
-        await fetch(process.env.N8N_WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ lead: data[0] }),
-        });
-      } catch (err) {
-        console.error("n8n webhook error:", err);
-      }
+    const lead = data[0];
+
+    const { error: eventError } = await supabase.from("lead_events").insert({
+      lead_id: lead.id,
+      tenant_id: lead.tenant_id,
+      event_type: "lead_created",
+      payload: {
+        source: "assessment",
+        answers,
+        readiness_score,
+        timeline,
+        budget,
+        style,
+        decision_maker: decisionMaker,
+        detected_source: source,
+      },
+    });
+
+    if (eventError) {
+      console.error("Lead event insert failed:", eventError);
     }
 
-    return NextResponse.json({ success: true, lead: data[0] });
+    // ----- Success response -----
+    return NextResponse.json({ success: true, lead });
   } catch (err) {
     console.error("API error:", err);
     return NextResponse.json({ error: "Unexpected error" }, { status: 500 });

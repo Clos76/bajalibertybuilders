@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
 
-import Container from "../ui/Container";
-
 const GUIDE_BENEFITS = [
   {
     icon: "💰",
@@ -45,243 +43,123 @@ export default function LeadMagnetSection() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    timeline: "",
-    budget: "",
-    style: "",
     phone: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [answers, setAnswers] = useState<{
+    timeline?: string;
+    budget?: string;
+    style?: string;
+    lotOwnership?: string;
+    decisionMaker?: string;
+  }>({});
+
+  const [honeypot, setHoneypot] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [submitAttempts, setSubmitAttempts] = useState(0);
-  const [lastSubmitTime, setLastSubmitTime] = useState(0);
-
-  // Security: Sanitize input to prevent XSS
-  const sanitizeInput = (input: string | unknown): string => {
-    if (typeof input !== "string") return "";
-    return input
-      .replace(/[<>]/g, "") // Remove < and > to prevent HTML injection
-      .replace(/javascript:/gi, "") // Remove javascript: protocol
-      .replace(/on\w+\s*=/gi, "") // Remove event handlers like onclick=
-      .trim()
-      .slice(0, 500); // Limit length to prevent buffer overflow attempts
-  };
-
-  // Security: Validate email format
-  const isValidEmail = (email: string): boolean => {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email) && email.length <= 254; // RFC 5321
-  };
-
-  // Security: Validate phone format (international)
-  const isValidPhone = (phone: string): boolean => {
-    if (!phone) return true; // Optional field
-    const phoneRegex =
-      /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/;
-    return phoneRegex.test(phone) && phone.length <= 20;
-  };
-
-  // Security: Validate name (letters, spaces, hyphens, apostrophes only)
-  const isValidName = (name: string): boolean => {
-    const nameRegex = /^[a-zA-ZÀ-ÿ\s'-]{2,100}$/;
-    return nameRegex.test(name);
-  };
-
-  // Security: Rate limiting - prevent spam submissions
-  const isRateLimited = () => {
-    const now = Date.now();
-    const timeSinceLastSubmit = now - lastSubmitTime;
-
-    // Block if more than 3 attempts in last 60 seconds
-    if (submitAttempts >= 3 && timeSinceLastSubmit < 60000) {
-      return true;
-    }
-
-    // Reset counter after 60 seconds
-    if (timeSinceLastSubmit > 60000) {
-      setSubmitAttempts(0);
-    }
-
-    return false;
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    const sanitized = sanitizeInput(value);
-
-    setFormData({
-      ...formData,
-      [name]: sanitized,
-    });
-
-    // Clear error for this field when user starts typing
-    if (errors[name]) {
-      setErrors({
-        ...errors,
-        [name]: "",
-      });
-    }
-  };
-
-  const validateForm = (): boolean => {
-    const newErrors: Record<string, string> = {};
-
-    // Validate name
-    if (!formData.name) {
-      newErrors.name = "Name is required";
-    } else if (!isValidName(formData.name)) {
-      newErrors.name = "Please enter a valid name (letters only)";
-    }
-
-    // Validate email
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!isValidEmail(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
-
-    // Validate timeline
-    if (!formData.timeline) {
-      newErrors.timeline = "Please select a project timeline";
-    }
-
-    // Validate phone if provided
-    if (formData.phone && !isValidPhone(formData.phone)) {
-      newErrors.phone = "Please enter a valid phone number";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
   const calculateLeadScore = () => {
     let score = 0;
 
-    // ✅ Timeline weighting
-    switch (formData.timeline) {
-      case "0-6":
-        score += 40; // ready to start soon
-        break;
-      case "6-12":
-        score += 25; // planning ahead
-        break;
-      case "12+":
-        score += 10; // future project
-        break;
-      case "research":
-        score += 5; // just researching
-        break;
-      default:
-        score += 0; // missing
+    // Lot Ownership (30 points)
+    if (answers.lotOwnership === "yes") {
+      score += 30;
     }
 
-    // ✅ Budget weighting
-    switch (formData.budget) {
-      case "200-400K":
-      case "500-700k":
-      case "700k-1m":
-      case "1m-1.5m":
-        score += 20;
-        break;
-      case "flexible":
-        score += 10;
-        break;
-      default:
-        score += 0;
+    // Timeline (25 points)
+    if (answers.timeline === "0-6" || answers.timeline === "3-6") {
+      score += 25;
     }
 
-    // ✅ Style preference weighting
-    const style = formData.style || "undecided";
-    if (
-      style === "california" ||
-      style === "mediterranean" ||
-      style === "modern"
-    ) {
+    // Budget (20 points)
+    if (answers.budget) {
+      score += 20;
+    }
+
+    // Decision Maker (15 points)
+    if (answers.decisionMaker === "yes") {
       score += 15;
     }
 
-    // ✅ Optional: phone provided adds slight commitment signal
-    if (formData.phone) score += 5;
+    // Phone (10 points)
+    if (formData.phone) {
+      const cleaned = formData.phone.replace(/\D/g, "");
+      if (cleaned.length >= 10 && cleaned.length <= 15) {
+        score += 10;
+      }
+    }
 
-    // ✅ Cap max score at 100
+    // Email (10 points) - always included if form submitted
+    if (formData.email) {
+      score += 10;
+    }
+
     if (score > 100) score = 100;
 
     return score;
   };
 
   const handleSubmit = async () => {
-    if (isRateLimited()) {
-      alert(
-        "Too many submission attempts. Please wait a minute and try again."
-      );
+    if (!formData.name || !formData.email) {
+      // removed ... ( || !answers.timeline for required )
+      setErrorMessage("Please fill in all required fields");
       return;
     }
 
-    if (!validateForm()) return;
-
-    setIsSubmitting(true);
-    setSubmitAttempts((prev) => prev + 1);
-    setLastSubmitTime(Date.now());
+    setStatus("loading");
+    setErrorMessage("");
 
     try {
-      // Submit new lead - send fields as top-level properties
+      if (honeypot) {
+        console.log("Bot detected via honeypot");
+        setIsSubmitted(true);
+        setStatus("success");
+        return;
+      }
+
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || null,
+        answers: {
+          timeline: answers.timeline,
+          budget: answers.budget || null,
+          style: answers.style || null,
+          lotOwnership: answers.lotOwnership || null,
+          decisionMaker: answers.decisionMaker || null,
+          readiness_score: calculateLeadScore(),
+        },
+        honeypot,
+      };
+
       const response = await fetch("/api/submit-lead", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: sanitizeInput(formData.name),
-          email: sanitizeInput(formData.email),
-          phone: sanitizeInput(formData.phone) || null,
-          timeline: sanitizeInput(formData.timeline),
-          budget: sanitizeInput(formData.budget) || null,
-          style: sanitizeInput(formData.style) || null,
-          source: "lead_magnet",
-          readiness_score: calculateLeadScore(),
-        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
       });
 
       const result = await response.json();
 
-      if (!result.success) {
-        if (result.status === "duplicate") {
-          alert(
-            "You already submitted this lead. Check your email for the guide!"
-          );
-          setIsSubmitted(true);
-          //reset form
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            timeline: "",
-            budget: "",
-            style: "",
-          });
-          setErrors({});
-        } else {
-          throw new Error(result.error || "Failed to submit");
-        }
-      } else {
-        setIsSubmitted(true);
-
-        //reset form
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          timeline: "",
-          budget: "",
-          style: "",
-        });
-        setErrors({});
+      if (!response.ok) {
+        throw new Error(result.error || "Submission failed");
       }
-    } catch (err) {
-      console.error("Lead submission error:", err);
-      alert("Something went wrong. Please try again later.");
-    } finally {
-      setIsSubmitting(false);
+
+      setStatus("success");
+      setIsSubmitted(true);
+
+      // Reset form
+      setFormData({ name: "", email: "", phone: "" });
+      setAnswers({});
+    } catch (error: any) {
+      console.error("Submission error:", error);
+      setStatus("error");
+      setErrorMessage(
+        error.message || "Something went wrong. Please try again."
+      );
     }
   };
 
@@ -296,7 +174,7 @@ export default function LeadMagnetSection() {
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full -ml-48 -mb-48" />
         </div>
 
-        <Container className="relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center text-white">
             <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white/20 backdrop-blur-sm mb-8 animate-bounce">
               <span className="text-5xl">✓</span>
@@ -337,7 +215,7 @@ export default function LeadMagnetSection() {
               </button>
             </div>
           </div>
-        </Container>
+        </div>
       </section>
     );
   }
@@ -347,7 +225,6 @@ export default function LeadMagnetSection() {
       id="lead-magnet"
       className="relative py-16 sm:py-20 lg:py-28 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 overflow-hidden"
     >
-      {/* Decorative Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -mr-48 -mt-48 animate-pulse"
@@ -361,17 +238,15 @@ export default function LeadMagnetSection() {
         <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-cyan-400/20 rounded-full blur-3xl" />
       </div>
 
-      <Container className="relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Column - Benefits */}
           <div className="text-white">
-            {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white text-sm font-semibold mb-6">
               <span className="text-lg">📥</span>
               <span>Free Download</span>
             </div>
 
-            {/* Headline */}
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               Download the{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300">
@@ -380,13 +255,11 @@ export default function LeadMagnetSection() {
               to Building a Custom Home in Baja
             </h2>
 
-            {/* Subtext */}
             <p className="text-xl text-blue-100 mb-10 leading-relaxed">
-              Everything U.S. & Foreing buyers need to know before starting
+              Everything U.S. & Foreign buyers need to know before starting
               their beachfront home project.
             </p>
 
-            {/* Benefits Grid */}
             <div className="space-y-4 mb-10">
               {GUIDE_BENEFITS.map((benefit, index) => (
                 <div
@@ -406,7 +279,6 @@ export default function LeadMagnetSection() {
               ))}
             </div>
 
-            {/* Trust Indicators */}
             <div className="flex flex-wrap gap-6 text-sm text-blue-200">
               <div className="flex items-center gap-2">
                 <span className="text-xl">✓</span>
@@ -425,9 +297,7 @@ export default function LeadMagnetSection() {
 
           {/* Right Column - Form */}
           <div className="relative">
-            {/* Form Card */}
             <div className="bg-white rounded-3xl shadow-2xl p-8 sm:p-10 border-2 border-blue-200">
-              {/* Form Header */}
               <div className="text-center mb-8">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 text-white text-3xl mb-4 shadow-lg">
                   📖
@@ -440,9 +310,27 @@ export default function LeadMagnetSection() {
                 </p>
               </div>
 
-              {/* Form Fields */}
+              {errorMessage && (
+                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl flex items-start gap-3">
+                  <span className="text-red-500">⚠️</span>
+                  <p className="text-red-600 text-sm">{errorMessage}</p>
+                </div>
+              )}
+
               <div className="space-y-5">
-                {/* Name - Required */}
+                {/* Honeypot */}
+                <input
+                  type="text"
+                  name="website"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  style={{ position: "absolute", left: "-9999px" }}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
+
+                {/* Name */}
                 <div>
                   <label
                     htmlFor="name"
@@ -455,16 +343,16 @@ export default function LeadMagnetSection() {
                     id="name"
                     name="name"
                     value={formData.name}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     placeholder="John Smith"
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900"
+                    disabled={status === "loading"}
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900 disabled:opacity-50"
                   />
-                  {errors.name && (
-                    <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-                  )}
                 </div>
 
-                {/* Email - Required */}
+                {/* Email */}
                 <div>
                   <label
                     htmlFor="email"
@@ -477,29 +365,61 @@ export default function LeadMagnetSection() {
                     id="email"
                     name="email"
                     value={formData.email}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                     placeholder="john@example.com"
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900"
+                    disabled={status === "loading"}
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900 disabled:opacity-50"
                   />
-                  {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                  )}
                 </div>
 
-                {/* Project Timeline - Required */}
+                {/* Lot Ownership - NEW */}
+                <div>
+                  <label
+                    htmlFor="lotOwnership"
+                    className="block text-sm font-semibold text-gray-700 mb-2"
+                  >
+                    Do you own your lot?
+                    {/* <span className="text-red-500">*</span> */}
+                    <span className="text-gray-400 text-xs">(Optional)</span>
+                  </label>
+                  <select
+                    id="lotOwnership"
+                    name="lotOwnership"
+                    value={answers.lotOwnership || ""}
+                    onChange={(e) =>
+                      setAnswers({ ...answers, lotOwnership: e.target.value })
+                    }
+                    disabled={status === "loading"}
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900 disabled:opacity-50"
+                  >
+                    <option value="">Select...</option>
+                    <option value="yes">Yes, I own my lot</option>
+                    <option value="no">No, still looking</option>
+                    <option value="unsure">Not sure yet</option>
+                  </select>
+                </div>
+
+                {/* Timeline */}
                 <div>
                   <label
                     htmlFor="timeline"
                     className="block text-sm font-semibold text-gray-700 mb-2"
                   >
-                    Project Timeline <span className="text-red-500">*</span>
+                    Project Timeline
+                    {/* <span className="text-red-500">*</span> */}
+                    <span className="text-gray-400 text-xs">(Optional)</span>
                   </label>
                   <select
                     id="timeline"
                     name="timeline"
-                    value={formData.timeline}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900"
+                    value={answers.timeline || ""}
+                    onChange={(e) =>
+                      setAnswers({ ...answers, timeline: e.target.value })
+                    }
+                    disabled={status === "loading"}
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900 disabled:opacity-50"
                   >
                     <option value="">Select your timeline</option>
                     <option value="0-6">Ready to start (0-6 months)</option>
@@ -507,14 +427,35 @@ export default function LeadMagnetSection() {
                     <option value="12+">Future project (12+ months)</option>
                     <option value="research">Just researching</option>
                   </select>
-                  {errors.timeline && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.timeline}
-                    </p>
-                  )}
                 </div>
 
-                {/* Budget Range - Optional */}
+                {/* Decision Maker - NEW
+                <div>
+                  <label
+                    htmlFor="decisionMaker"
+                    className="block text-sm font-semibold text-gray-700 mb-2"
+                  >
+                    Are you the primary decision maker?{" "}
+                    <span className="text-gray-400 text-xs">(Optional)</span>
+                  </label>
+                  <select
+                    id="decisionMaker"
+                    name="decisionMaker"
+                    value={answers.decisionMaker || ""}
+                    onChange={(e) =>
+                      setAnswers({ ...answers, decisionMaker: e.target.value })
+                    }
+                    disabled={status === "loading"}
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900 disabled:opacity-50"
+                  >
+                    <option value="">Select...</option>
+                    <option value="yes">Yes, it's my decision</option>
+                    <option value="joint">Joint decision with partner/family</option>
+                    <option value="no">No, consulting for someone else</option>
+                  </select>
+                </div> */}
+
+                {/* Budget */}
                 <div>
                   <label
                     htmlFor="budget"
@@ -526,21 +467,23 @@ export default function LeadMagnetSection() {
                   <select
                     id="budget"
                     name="budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900"
+                    value={answers.budget || ""}
+                    onChange={(e) =>
+                      setAnswers({ ...answers, budget: e.target.value })
+                    }
+                    disabled={status === "loading"}
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900 disabled:opacity-50"
                   >
                     <option value="">Select budget range</option>
                     <option value="200-400K">$200K - $400k</option>
                     <option value="500-700k">$500K - $700K</option>
                     <option value="700k-1m">$700K - $1M</option>
                     <option value="1m-1.5m">$1M - $1.5M</option>
-
                     <option value="flexible">Flexible</option>
                   </select>
                 </div>
 
-                {/* Preferred Style - Optional */}
+                {/* Style */}
                 <div>
                   <label
                     htmlFor="style"
@@ -552,9 +495,12 @@ export default function LeadMagnetSection() {
                   <select
                     id="style"
                     name="style"
-                    value={formData.style}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900"
+                    value={answers.style || ""}
+                    onChange={(e) =>
+                      setAnswers({ ...answers, style: e.target.value })
+                    }
+                    disabled={status === "loading"}
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900 disabled:opacity-50"
                   >
                     <option value="">Select style preference</option>
                     <option value="california">California Contemporary</option>
@@ -564,7 +510,7 @@ export default function LeadMagnetSection() {
                   </select>
                 </div>
 
-                {/* Phone - Optional */}
+                {/* Phone */}
                 <div>
                   <label
                     htmlFor="phone"
@@ -578,19 +524,22 @@ export default function LeadMagnetSection() {
                     id="phone"
                     name="phone"
                     value={formData.phone}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
                     placeholder="+1 (555) 123-4567"
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900"
+                    disabled={status === "loading"}
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-gray-900 disabled:opacity-50"
                   />
                 </div>
 
                 {/* Submit Button */}
                 <button
                   onClick={handleSubmit}
-                  disabled={isSubmitting}
+                  disabled={status === "loading"}
                   className="w-full py-4 px-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
                 >
-                  {isSubmitting ? (
+                  {status === "loading" ? (
                     <span className="flex items-center justify-center gap-3">
                       <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
                         <circle
@@ -618,13 +567,11 @@ export default function LeadMagnetSection() {
                   )}
                 </button>
 
-                {/* Microcopy */}
                 <p className="text-center text-sm text-gray-500 mt-4">
                   🔒 No spam. Built specifically for U.S. & Canadian buyers.
                 </p>
               </div>
 
-              {/* Additional CTA */}
               <div className="mt-8 pt-8 border-t-2 border-gray-100 text-center">
                 <p className="text-gray-600 mb-4">Prefer to talk first?</p>
                 <a
@@ -668,7 +615,7 @@ export default function LeadMagnetSection() {
             </div>
           </div>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
