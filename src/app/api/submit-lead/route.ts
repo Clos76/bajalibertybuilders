@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
       if (tokenError) {
         console.error("Error creating brochure token:", tokenError);
       } else {
-        brochureUrl = `https://bajalibertybuilders.vercel.app/api/brochure?token=${brochureToken}`;
+        brochureUrl = `https://bajalibertybuilders.vercel.app/brochure/${brochureToken}`;
       }
     }
 
