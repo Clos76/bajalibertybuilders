@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { v4 as uuidv4 } from "uuid"; // ✅ Added for brochure token generation
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -68,6 +69,32 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    // ----- Generate brochure token (NEW) -----
+    let brochureToken: string | null = null;
+    let brochureUrl: string | null = null;
+
+    if (email) {
+      brochureToken = uuidv4(); // ✅ Generate unique token
+      const expiresAt = new Date(
+        Date.now() + 1000 * 60 * 60 * 24
+      ).toISOString(); // 24h expiration
+
+      const { error: tokenError } = await supabase
+        .from("brochure_download_tokens")
+        .insert({
+          email: email.toLowerCase(),
+          token: brochureToken,
+          brochure_path: "brochure-v1.pdf",
+          expires_at: expiresAt,
+        });
+
+      if (tokenError) {
+        console.error("Error creating brochure token:", tokenError);
+      } else {
+        brochureUrl = `https://bajalibertybuilders.vercel.app/api/brochure?token=${brochureToken}`;
+      }
+    }
+
     // ----- Insert new lead into Supabase -----
     const { data, error } = await supabase
       .from("leads")
@@ -82,6 +109,8 @@ export async function POST(req: NextRequest) {
           style,
           decision_maker: decisionMaker,
           readiness_score: readiness_score ?? null,
+          brochure_token: brochureToken, // ✅ added brochure token to custom_fields
+          brochure_url: brochureUrl, // ✅ added brochure URL to custom_fields
         },
         tenant_id: process.env.NEXT_PUBLIC_TENANT_ID || null,
         landing_page_id: process.env.NEXT_PUBLIC_LANDING_PAGE_ID || null,
@@ -99,8 +128,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const lead = data[0];
+    const lead = data[0]; // ✅ Keep this after insert
 
+    // ----- Log lead creation event -----
     const { error: eventError } = await supabase.from("lead_events").insert({
       lead_id: lead.id,
       tenant_id: lead.tenant_id,
@@ -114,6 +144,8 @@ export async function POST(req: NextRequest) {
         style,
         decision_maker: decisionMaker,
         detected_source: source,
+        brochure_token: brochureToken, // ✅ optional, for logging
+        brochure_url: brochureUrl, // ✅ optional, for logging
       },
     });
 
