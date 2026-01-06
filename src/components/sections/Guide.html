@@ -1,0 +1,2570 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ultimate Guide to Building a Custom Home in Baja California</title>
+    <style>
+      @page {
+        size: letter;
+        margin: 0.75in;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Arial, sans-serif;
+        line-height: 1.6;
+        color: #1a202c;
+        max-width: 8.5in;
+        margin: 0 auto;
+        background: white;
+      }
+
+      .cover {
+        text-align: center;
+        padding: 3in 1in;
+        background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+        color: white;
+        page-break-after: always;
+        min-height: 10in;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .cover h1 {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        line-height: 1.2;
+      }
+
+      .cover .subtitle {
+        font-size: 24px;
+        margin-bottom: 40px;
+        opacity: 0.95;
+      }
+
+      .cover .tagline {
+        font-size: 18px;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto 60px;
+      }
+
+      .cover .logo {
+        font-size: 36px;
+        font-weight: 700;
+        margin-top: 60px;
+      }
+
+      .toc {
+        page-break-after: always;
+        padding: 40px 0;
+      }
+
+      .toc h2 {
+        font-size: 32px;
+        margin-bottom: 30px;
+        color: #ea580c;
+        border-bottom: 3px solid #f59e0b;
+        padding-bottom: 10px;
+      }
+
+      .toc-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .toc-item .chapter {
+        font-weight: 600;
+        color: #1a202c;
+      }
+
+      .toc-item .page {
+        color: #ea580c;
+        font-weight: 600;
+      }
+
+      .chapter {
+        page-break-before: always;
+        padding: 40px 0;
+      }
+
+      .chapter-number {
+        display: inline-block;
+        background: linear-gradient(135deg, #f59e0b, #ea580c);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+
+      .chapter h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+        color: #1a202c;
+        line-height: 1.2;
+      }
+
+      .chapter h3 {
+        font-size: 24px;
+        margin: 30px 0 15px;
+        color: #ea580c;
+        border-left: 4px solid #f59e0b;
+        padding-left: 15px;
+      }
+
+      .chapter h4 {
+        font-size: 18px;
+        margin: 20px 0 10px;
+        color: #1a202c;
+        font-weight: 600;
+      }
+
+      .chapter p {
+        margin-bottom: 15px;
+        color: #4a5568;
+      }
+
+      .highlight-box {
+        background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+        border-left: 5px solid #f59e0b;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+      }
+
+      .highlight-box h4 {
+        margin-top: 0;
+        color: #92400e;
+      }
+
+      .info-box {
+        background: #f0f9ff;
+        border-left: 5px solid #3b82f6;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+      }
+
+      .info-box h4 {
+        margin-top: 0;
+        color: #1e3a8a;
+      }
+
+      .warning-box {
+        background: #fef2f2;
+        border-left: 5px solid #ef4444;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+      }
+
+      .warning-box h4 {
+        margin-top: 0;
+        color: #991b1b;
+      }
+
+      ul,
+      ol {
+        margin: 15px 0;
+        padding-left: 30px;
+      }
+
+      li {
+        margin-bottom: 10px;
+        color: #4a5568;
+      }
+
+      strong {
+        color: #1a202c;
+        font-weight: 600;
+      }
+
+      .cost-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+      }
+
+      .cost-table th {
+        background: linear-gradient(135deg, #f59e0b, #ea580c);
+        color: white;
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+      }
+
+      .cost-table td {
+        padding: 12px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .cost-table tr:nth-child(even) {
+        background: #f7fafc;
+      }
+
+      .timeline-step {
+        margin: 20px 0;
+        padding-left: 40px;
+        position: relative;
+      }
+
+      .timeline-step::before {
+        content: "";
+        position: absolute;
+        left: 10px;
+        top: 0;
+        bottom: -20px;
+        width: 2px;
+        background: #f59e0b;
+      }
+
+      .timeline-step::after {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        width: 12px;
+        height: 12px;
+        background: #ea580c;
+        border-radius: 50%;
+      }
+
+      .timeline-step:last-child::before {
+        display: none;
+      }
+
+      .checklist-item {
+        display: flex;
+        align-items: start;
+        margin: 10px 0;
+        padding: 10px;
+        background: #f7fafc;
+        border-radius: 6px;
+      }
+
+      .checklist-item::before {
+        content: "☐";
+        font-size: 20px;
+        margin-right: 12px;
+        color: #f59e0b;
+      }
+
+      .footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 2px solid #e2e8f0;
+        text-align: center;
+        color: #718096;
+        font-size: 14px;
+      }
+
+      @media print {
+        body {
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- COVER PAGE -->
+    <div class="cover">
+      <h1>
+        The Ultimate Guide to<br />Building a Custom Home<br />in Baja
+        California
+      </h1>
+      <div class="subtitle">Everything U.S. & Foreign Buyers Need to Know</div>
+      <div class="tagline">
+        A comprehensive resource for North American buyers planning their dream
+        beachfront home in Rosarito, La Misión, and Ensenada
+      </div>
+      <div style="margin-top: 80px; font-size: 16px; opacity: 0.9">
+        💰 Real Cost Comparisons | ⚖️ Legal Guidance | 🏗️ Design Options<br />
+        ⏱️ Timeline Breakdown | ⚠️ Common Mistakes | ✓ Complete Checklist
+      </div>
+      <div class="logo">Baja Liberty Builders</div>
+      <div style="margin-top: 20px; font-size: 16px; opacity: 0.9">
+        Building Dreams Since 2015
+      </div>
+    </div>
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="toc">
+      <h2>Table of Contents</h2>
+
+      <div class="toc-item">
+        <span class="chapter">Introduction: Why Build in Baja?</span>
+        <span class="page">3</span>
+      </div>
+
+      <div class="toc-item">
+        <span class="chapter">Chapter 1: Cost Breakdown vs California</span>
+        <span class="page">5</span>
+      </div>
+
+      <div class="toc-item">
+        <span class="chapter"
+          >Chapter 2: Land Acquisition & Fideicomiso Basics</span
+        >
+        <span class="page">8</span>
+      </div>
+
+      <div class="toc-item">
+        <span class="chapter">Chapter 3: Budget Planning & Hidden Costs</span>
+        <span class="page">14</span>
+      </div>
+
+      <div class="toc-item">
+        <span class="chapter"
+          >Chapter 4: Legal Ownership Explained (Deep Dive)</span
+        >
+        <span class="page">17</span>
+      </div>
+
+      <div class="toc-item">
+        <span class="chapter">Chapter 5: Design & Style Options</span>
+        <span class="page">23</span>
+      </div>
+
+      <div class="toc-item">
+        <span class="chapter">Chapter 6: The Build Process (Step-by-Step)</span>
+        <span class="page">27</span>
+      </div>
+
+      <div class="toc-item">
+        <span class="chapter">Chapter 7: Timeline Expectations</span>
+        <span class="page">33</span>
+      </div>
+
+      <div class="toc-item">
+        <span class="chapter">Chapter 8: Working with Your Builder</span>
+        <span class="page">36</span>
+      </div>
+
+      <div class="toc-item">
+        <span class="chapter">Chapter 9: Common Mistakes to Avoid</span>
+        <span class="page">39</span>
+      </div>
+
+      <div class="toc-item">
+        <span class="chapter">Chapter 10: Complete Planning Checklist</span>
+        <span class="page">43</span>
+      </div>
+
+      <div class="toc-item">
+        <span class="chapter">Appendix: Resources & Contacts</span>
+        <span class="page">47</span>
+      </div>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div class="chapter">
+      <div class="chapter-number">INTRODUCTION</div>
+      <h2>Why Build in Baja California?</h2>
+
+      <p>
+        If you're reading this guide, you've already discovered what thousands
+        of North Americans have learned: building a custom beachfront home in
+        Baja California offers an extraordinary combination of value, lifestyle,
+        and opportunity that simply doesn't exist in the United States anymore.
+      </p>
+
+      <p>But with that opportunity comes questions. Lots of them.</p>
+
+      <p>
+        <em
+          >Can I really own property in Mexico? What about legal protections?
+          How much will it actually cost? What if something goes wrong? How do I
+          navigate permits and bureaucracy in a foreign country?</em
+        >
+      </p>
+
+      <p>
+        This guide exists to answer every one of those questions—and many more
+        you haven't thought of yet.
+      </p>
+
+      <h3>Who This Guide Is For</h3>
+
+      <p>This resource is specifically designed for:</p>
+
+      <ul>
+        <li>
+          <strong>U.S. and Canadian buyers</strong> considering a primary
+          residence, vacation home, or retirement property in Baja California
+        </li>
+        <li>
+          <strong>First-time international property buyers</strong> who need
+          clear guidance on the process
+        </li>
+        <li>
+          <strong>Anyone in the research phase</strong> trying to determine if
+          building in Baja makes sense for their situation
+        </li>
+        <li>
+          <strong>People who've been burned before</strong> by incomplete
+          information or unreliable contractors
+        </li>
+      </ul>
+
+      <h3>What You'll Learn</h3>
+
+      <p>By the end of this guide, you'll have a complete understanding of:</p>
+
+      <ul>
+        <li>
+          Real cost comparisons between building in Baja vs. coastal California
+        </li>
+        <li>
+          The fideicomiso (bank trust) system and how it protects foreign owners
+        </li>
+        <li>How to find, evaluate, and purchase land</li>
+        <li>Architectural styles and design considerations specific to Baja</li>
+        <li>The complete month-by-month build timeline</li>
+        <li>
+          Common mistakes that cost buyers thousands (and how to avoid them)
+        </li>
+        <li>
+          What to look for in a builder and how to protect your investment
+        </li>
+      </ul>
+
+      <div class="highlight-box">
+        <h4>💡 Our Commitment to Transparency</h4>
+        <p>
+          This guide contains real numbers, honest advice, and information you
+          need to make an informed decision—even if that decision is to not
+          build in Baja. Our goal is to educate you, not sell you.
+        </p>
+        <p>
+          We believe informed buyers become confident builders, and confident
+          builders end up with homes they love.
+        </p>
+      </div>
+
+      <h3>How to Use This Guide</h3>
+
+      <p>
+        Feel free to read straight through or jump to the chapters most relevant
+        to your current questions. We've designed each chapter to stand alone
+        while building on the information that came before.
+      </p>
+
+      <p>Throughout the guide, you'll find:</p>
+      <ul>
+        <li><strong>Highlight boxes</strong> for key insights and tips</li>
+        <li><strong>Info boxes</strong> for detailed explanations</li>
+        <li><strong>Warning boxes</strong> for critical mistakes to avoid</li>
+        <li><strong>Real examples</strong> from actual builds</li>
+        <li><strong>Checklists</strong> you can use during your planning</li>
+      </ul>
+
+      <p>
+        Ready? Let's start with the question everyone asks first:
+        <em>"How much money can I actually save?"</em>
+      </p>
+    </div>
+
+    <!-- CHAPTER 2: LAND ACQUISITION -->
+    <div class="chapter">
+      <div class="chapter-number">CHAPTER 2</div>
+      <h2>Land Acquisition Guide</h2>
+
+      <p>
+        Before you can build your dream home, you need to secure the right piece
+        of land. This chapter walks you through finding, evaluating, and legally
+        purchasing property in Baja California as a foreign buyer.
+      </p>
+
+      <h3>Understanding the Restricted Zone</h3>
+
+      <p>
+        Rosarito, La Misión, and most of coastal Baja California fall within
+        what's called the "Restricted Zone"—land within 50km (31 miles) of the
+        coast or 100km (62 miles) of an international border.
+      </p>
+
+      <div class="info-box">
+        <h4>📜 Constitutional Basis</h4>
+        <p>
+          <strong>Article 27 of the Mexican Constitution</strong> establishes
+          the Restricted Zone. This isn't a ban on foreign ownership—it's a
+          framework that requires foreign buyers to hold coastal property
+          through a specific legal structure called a fideicomiso (bank trust).
+        </p>
+        <p>
+          <strong>Foreign Investment Law (Articles 10 & 11)</strong> defines
+          exactly how foreigners can acquire and hold residential property
+          rights in these zones.
+        </p>
+      </div>
+
+      <h3>What is a Fideicomiso?</h3>
+
+      <p>
+        A fideicomiso is a Mexican bank trust that allows foreigners to legally
+        own and control property in the Restricted Zone. Think of it as a legal
+        workaround that gives you all the benefits of ownership without
+        technically holding direct title.
+      </p>
+
+      <h4>How It Works:</h4>
+
+      <ul>
+        <li>
+          <strong>The Bank (Trustee):</strong> A licensed Mexican bank holds
+          legal title to the property on your behalf
+        </li>
+        <li>
+          <strong>You (Beneficiary):</strong> You maintain complete beneficial
+          ownership and control
+        </li>
+        <li>
+          <strong>Your Rights:</strong> You can use, rent, sell, mortgage,
+          improve, or will the property exactly as if you held direct title
+        </li>
+      </ul>
+
+      <h3>Your Complete Ownership Rights</h3>
+
+      <p>
+        As the beneficiary of a fideicomiso, you hold virtually all the same
+        rights as direct ownership:
+      </p>
+
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th>Right</th>
+            <th>What You Can Do</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Sell</strong></td>
+            <td>
+              Transfer the property to another foreigner (who takes over the
+              trust) or to a Mexican citizen (who can take direct title)
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Rent</strong></td>
+            <td>
+              Lease the property short-term or long-term and collect 100% of
+              rental income (subject to tax reporting)
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Will/Inherit</strong></td>
+            <td>
+              Name substitute beneficiaries who receive the property directly
+              without Mexican probate
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Mortgage</strong></td>
+            <td>
+              Use the property as collateral for financing (though options are
+              limited)
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Build/Improve</strong></td>
+            <td>
+              Construct, renovate, or modify the property without bank
+              permission
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Transfer</strong></td>
+            <td>
+              Change beneficiaries or add additional beneficiaries to the trust
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Key Benefits of the Fideicomiso System</h3>
+
+      <div class="highlight-box">
+        <h4>✓ Long-Term Security</h4>
+        <ul>
+          <li>
+            <strong>50-Year Term:</strong> The trust is valid for 50 years from
+            establishment
+          </li>
+          <li>
+            <strong>Indefinitely Renewable:</strong> By law, the term can be
+            extended before expiration—there's no limit on renewals
+          </li>
+          <li>
+            <strong>Automatic Renewal Option:</strong> Most banks offer
+            automatic renewal clauses so you never have to worry about
+            expiration
+          </li>
+        </ul>
+
+        <h4>✓ Asset Protection</h4>
+        <ul>
+          <li>
+            Property in a fideicomiso is
+            <strong>not considered an asset of the bank</strong>
+          </li>
+          <li>
+            If the trustee bank fails or is acquired, your property is simply
+            transferred to another trustee bank
+          </li>
+          <li>
+            The bank cannot use, sell, or encumber your property for any reason
+          </li>
+        </ul>
+
+        <h4>✓ Probate Avoidance</h4>
+        <ul>
+          <li>
+            Substitute beneficiaries (your heirs) are named directly in the
+            trust
+          </li>
+          <li>
+            Upon your death, the property transfers automatically without
+            Mexican court involvement
+          </li>
+          <li>
+            Saves your family time, money, and the complexity of international
+            probate
+          </li>
+        </ul>
+
+        <h4>✓ Privacy</h4>
+        <ul>
+          <li>
+            In the Public Property Registry, the owner of record is the bank
+            trust number—not your personal name
+          </li>
+          <li>
+            Your personal information remains private while maintaining full
+            legal rights
+          </li>
+        </ul>
+      </div>
+
+      <h3>Setting Up Your Fideicomiso</h3>
+
+      <p>
+        The fideicomiso is established during your land purchase through a
+        Mexican Notary Public (Notario Público).
+      </p>
+
+      <h4>Step-by-Step Process:</h4>
+
+      <div class="timeline-step">
+        <h4>1. Choose Your Bank</h4>
+        <p>
+          Select a Mexican bank to serve as trustee. Popular choices include:
+        </p>
+        <ul>
+          <li>Scotiabank (Canadian-owned, popular with North Americans)</li>
+          <li>HSBC Mexico</li>
+          <li>Banorte</li>
+          <li>Banco del Bajío</li>
+        </ul>
+        <p>
+          We work with all major banks and can recommend the one that best fits
+          your situation.
+        </p>
+      </div>
+
+      <div class="timeline-step">
+        <h4>2. Hire a Notario Público</h4>
+        <p>
+          Unlike U.S. notaries, Mexican Notarios are highly trained legal
+          officials appointed by the state. They:
+        </p>
+        <ul>
+          <li>Authenticate the property title and verify it's free of liens</li>
+          <li>Calculate and collect all taxes due on the transaction</li>
+          <li>Draft and execute the trust documents</li>
+          <li>Register everything with the Public Property Registry</li>
+          <li>Ensure the transaction complies with all Mexican laws</li>
+        </ul>
+      </div>
+
+      <div class="timeline-step">
+        <h4>3. Obtain Government Permit</h4>
+        <p>
+          The notario applies to the Ministry of Foreign Affairs (SRE) for
+          permission to establish the fideicomiso. This is typically approved
+          within 2-4 weeks.
+        </p>
+      </div>
+
+      <div class="timeline-step">
+        <h4>4. Execute the Trust</h4>
+        <p>
+          Once approved, the notario prepares the final trust documents. You'll
+          sign in front of the notario (can often be done via power of attorney
+          if you're not in Mexico), and the property is officially transferred
+          into the trust with you as the beneficiary.
+        </p>
+      </div>
+
+      <div class="timeline-step">
+        <h4>5. Registration</h4>
+        <p>
+          The notario registers the fideicomiso with the Public Property
+          Registry, making your ownership official and publicly recorded.
+        </p>
+      </div>
+
+      <h3>Typical Costs</h3>
+
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th>Expense</th>
+            <th>Typical Range</th>
+            <th>Paid To</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Fideicomiso Setup Fee</td>
+            <td>$2,000 - $3,500</td>
+            <td>Bank (one-time)</td>
+          </tr>
+          <tr>
+            <td>Annual Trust Renewal</td>
+            <td>$500 - $800</td>
+            <td>Bank (yearly)</td>
+          </tr>
+          <tr>
+            <td>Notario Fees</td>
+            <td>4% - 6% of property value</td>
+            <td>Notario (one-time)</td>
+          </tr>
+          <tr>
+            <td>Transfer Tax (ISAI)</td>
+            <td>2% - 3% of property value</td>
+            <td>State Government (one-time)</td>
+          </tr>
+          <tr>
+            <td>Title Insurance (Optional)</td>
+            <td>$1,000 - $2,500</td>
+            <td>Title Company (one-time)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="warning-box">
+        <h4>⚠️ Never Skip the Fideicomiso</h4>
+        <p>
+          Some sellers or "advisors" may suggest alternative approaches to avoid
+          fideicomiso costs:
+        </p>
+        <ul>
+          <li>❌ Putting property in a Mexican friend's name</li>
+          <li>
+            ❌ Using a Mexican corporation for residential property (illegal)
+          </li>
+          <li>❌ Verbal agreements or "handshake deals"</li>
+          <li>❌ Incomplete documentation to "save money"</li>
+        </ul>
+        <p>
+          <strong>These are all catastrophically bad ideas.</strong> You'll have
+          zero legal protection, no real ownership, and no recourse if something
+          goes wrong. The fideicomiso costs $7K-$10K total—cheap insurance for a
+          $500K+ investment.
+        </p>
+      </div>
+
+      <h3>Alternative: Direct Ownership Outside Restricted Zones</h3>
+
+      <p>
+        If you purchase land more than 50km from the coast (for example, in
+        Mexico City or Guadalajara), foreigners can own property "fee simple"
+        with direct title—no fideicomiso required.
+      </p>
+
+      <p>
+        However, since this guide focuses on beachfront or ocean-view properties
+        in Baja California, virtually all properties will require a fideicomiso.
+      </p>
+
+      <h3>Finding the Right Land</h3>
+
+      <p>
+        Now that you understand the legal structure, let's talk about finding
+        your perfect lot:
+      </p>
+
+      <h4>Prime Locations in Baja California:</h4>
+
+      <ul>
+        <li>
+          <strong>Rosarito Beach:</strong> 30 minutes from San Diego border,
+          established expat community, good infrastructure
+        </li>
+        <li>
+          <strong>La Misión:</strong> Quieter beachfront living, stunning cliffs
+          and ocean views, growing development
+        </li>
+        <li>
+          <strong>Ensenada:</strong> Larger city with full services, wine
+          country nearby, more affordable
+        </li>
+        <li>
+          <strong>Puerto Nuevo to La Fonda:</strong> Scenic coastal corridor,
+          mix of beachfront and elevated lots
+        </li>
+      </ul>
+
+      <h4>What to Look For:</h4>
+
+      <div class="checklist-item">
+        Clear title with no liens or legal disputes
+      </div>
+      <div class="checklist-item">
+        Verified zoning for residential construction
+      </div>
+      <div class="checklist-item">
+        Access to utilities (electric, water, sewer/septic)
+      </div>
+      <div class="checklist-item">
+        Legal road access (deeded easement if private road)
+      </div>
+      <div class="checklist-item">Soil conditions suitable for building</div>
+      <div class="checklist-item">
+        Reasonable distance from main roads (emergency access)
+      </div>
+      <div class="checklist-item">
+        No environmental restrictions (wetlands, protected areas)
+      </div>
+
+      <h3>Working with a Real Estate Agent</h3>
+
+      <p>
+        We strongly recommend working with a licensed real estate agent who
+        specializes in foreign buyer transactions. They should:
+      </p>
+
+      <ul>
+        <li>Be bilingual and understand both legal systems</li>
+        <li>Have relationships with reputable notarios</li>
+        <li>Provide references from past foreign buyers</li>
+        <li>Help you understand true market values</li>
+        <li>Coordinate due diligence (title search, surveys, etc.)</li>
+      </ul>
+
+      <div class="highlight-box">
+        <h4>💡 Our Role in Your Land Search</h4>
+        <p>
+          While we don't sell real estate, we help clients evaluate potential
+          lots from a builder's perspective:
+        </p>
+        <ul>
+          <li>Site feasibility assessment (soil, slope, access)</li>
+          <li>Construction cost implications of lot characteristics</li>
+          <li>Utility connection requirements and costs</li>
+          <li>Referrals to trusted real estate agents and notarios</li>
+          <li>Preliminary design concepts to visualize the potential</li>
+        </ul>
+        <p>
+          Many clients work with us before purchasing land to ensure their lot
+          will accommodate their dream home within budget.
+        </p>
+      </div>
+    </div>
+
+    <!-- CHAPTER 4: LEGAL OWNERSHIP -->
+    <div class="chapter">
+      <div class="chapter-number">CHAPTER 4</div>
+      <h2>Legal Ownership Explained: Your Complete Rights</h2>
+
+      <p>
+        This is the chapter that answers the biggest question most foreign
+        buyers have:
+        <em
+          >"Can I really own property in Mexico, and will my investment be
+          protected?"</em
+        >
+      </p>
+
+      <p>The short answer: <strong>Yes, absolutely.</strong></p>
+
+      <p>
+        The longer answer involves understanding a system that's been protecting
+        foreign property owners in Mexico since 1973—and has worked flawlessly
+        for hundreds of thousands of North American homeowners.
+      </p>
+
+      <h3>Constitutional Framework: Article 27</h3>
+
+      <p>
+        Mexico's Constitution (Article 27, Section I) establishes what's known
+        as the "Restricted Zone"—coastal and border areas where direct foreign
+        ownership was historically prohibited for national security reasons.
+      </p>
+
+      <p><strong>The Restricted Zone includes:</strong></p>
+      <ul>
+        <li>All land within 50 kilometers (31 miles) of any coast</li>
+        <li>
+          All land within 100 kilometers (62 miles) of any international border
+        </li>
+      </ul>
+
+      <p>
+        Rosarito, La Misión, and most desirable coastal areas of Baja California
+        fall within this zone.
+      </p>
+
+      <div class="info-box">
+        <h4>🏛️ Legal Evolution</h4>
+        <p>
+          In 1973, Mexico passed the Foreign Investment Law, which created the
+          fideicomiso system as a constitutional workaround. This allows
+          foreigners to hold beneficial ownership rights while technically
+          keeping legal title with a Mexican bank.
+        </p>
+        <p>
+          <strong>Articles 10 and 11 of the Foreign Investment Law</strong>
+          specifically define how foreigners can use a fideicomiso to acquire
+          and hold residential property rights in Restricted Zones.
+        </p>
+        <p>
+          This isn't a loophole—it's an officially sanctioned, government-backed
+          system with over 50 years of legal precedent.
+        </p>
+      </div>
+
+      <h3>The Fideicomiso: Your Legal Protection</h3>
+
+      <p>
+        A fideicomiso is a real estate trust managed by a licensed Mexican bank.
+        The bank holds legal title as trustee, while you hold complete
+        beneficial ownership as the beneficiary.
+      </p>
+
+      <h4>Three Parties in Every Fideicomiso:</h4>
+
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th>Party</th>
+            <th>Role</th>
+            <th>Responsibilities</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Settlor (Fideicomitente)</strong></td>
+            <td>The seller</td>
+            <td>Transfers the property into the trust</td>
+          </tr>
+          <tr>
+            <td><strong>Trustee (Fiduciario)</strong></td>
+            <td>The Mexican bank</td>
+            <td>
+              Holds legal title and executes transactions at your direction; has
+              zero decision-making authority
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Beneficiary (Fideicomisario)</strong></td>
+            <td>You (the buyer)</td>
+            <td>
+              Holds all beneficial rights; makes all decisions about the
+              property
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Your Rights Are Identical to Direct Ownership</h3>
+
+      <p>
+        Despite what some skeptics claim, a fideicomiso gives you the
+        <strong>exact same rights</strong> as owning property directly in the
+        U.S. or Canada:
+      </p>
+
+      <h4>1. Right to Sell</h4>
+      <ul>
+        <li>
+          You can sell the property at any time, at any price, to any qualified
+          buyer (foreign or Mexican)
+        </li>
+        <li>
+          If selling to another foreigner, they simply become the new
+          beneficiary (or establish a new fideicomiso)
+        </li>
+        <li>
+          If selling to a Mexican citizen, they can take direct title and
+          dissolve the trust
+        </li>
+        <li>You collect 100% of the sale proceeds (minus taxes and fees)</li>
+      </ul>
+
+      <h4>2. Right to Rent</h4>
+      <ul>
+        <li>
+          You have complete authority to lease the property—short-term vacation
+          rentals or long-term residential leases
+        </li>
+        <li>You collect 100% of rental income</li>
+        <li>
+          You're responsible for reporting rental income to Mexican tax
+          authorities (and your home country if required)
+        </li>
+        <li>
+          The bank has no involvement in rental operations—it's entirely your
+          business
+        </li>
+      </ul>
+
+      <h4>3. Right to Inherit (Will the Property)</h4>
+      <ul>
+        <li>
+          You designate "substitute beneficiaries" directly in the trust
+          document—these are your heirs
+        </li>
+        <li>
+          Upon your death, substitute beneficiaries automatically become the
+          primary beneficiaries
+        </li>
+        <li>
+          <strong>No Mexican probate required</strong>—this is one of the
+          biggest advantages of the fideicomiso system
+        </li>
+        <li>
+          Your heirs avoid the time, expense, and complexity of international
+          probate
+        </li>
+        <li>
+          The transition is simple: death certificate, new IDs, small admin fee
+          to bank
+        </li>
+      </ul>
+
+      <h4>4. Right to Mortgage/Finance</h4>
+      <ul>
+        <li>
+          You can use the property as collateral for loans (though Mexican banks
+          rarely offer mortgages to foreigners)
+        </li>
+        <li>
+          Some U.S. and Canadian lenders will finance fideicomiso properties
+          with proper appraisals and title insurance
+        </li>
+        <li>
+          Home equity lines of credit on your U.S./Canadian property are a
+          common alternative
+        </li>
+      </ul>
+
+      <h4>5. Right to Build, Renovate, or Modify</h4>
+      <ul>
+        <li>
+          You have complete authority to construct, remodel, or improve the
+          property
+        </li>
+        <li>No bank permission required for construction projects</li>
+        <li>
+          You must still obtain proper municipal building permits (just like in
+          the U.S.)
+        </li>
+      </ul>
+
+      <h4>6. Right to Transfer or Add Beneficiaries</h4>
+      <ul>
+        <li>
+          You can add your spouse, children, or business partners as
+          co-beneficiaries
+        </li>
+        <li>You can remove beneficiaries (with proper documentation)</li>
+        <li>You can gift beneficial ownership to someone else</li>
+      </ul>
+
+      <div class="highlight-box">
+        <h4>🛡️ The Bank Has ZERO Authority Over Your Property</h4>
+        <p>This is critical to understand:</p>
+        <ul>
+          <li>The bank CANNOT sell, rent, mortgage, or modify your property</li>
+          <li>The bank CANNOT make any decisions about the property</li>
+          <li>The bank acts ONLY on your written instructions</li>
+          <li>The bank's role is purely administrative</li>
+        </ul>
+        <p>
+          Think of the bank as a filing cabinet that holds the legal title—it
+          has no more control over your property than a filing cabinet would.
+        </p>
+      </div>
+
+      <h3>Asset Protection: What If the Bank Fails?</h3>
+
+      <p>This is a common concern, so let's address it directly:</p>
+
+      <p>
+        <strong
+          >Property held in a fideicomiso is NOT an asset of the bank.</strong
+        >
+      </p>
+
+      <p>This means:</p>
+      <ul>
+        <li>
+          If the bank fails, goes bankrupt, or is acquired, your property is
+          completely protected
+        </li>
+        <li>
+          The bank cannot use your property to pay creditors or satisfy debts
+        </li>
+        <li>
+          In the event of bank failure, the property is simply transferred to
+          another trustee bank
+        </li>
+        <li>Your rights remain unchanged throughout this process</li>
+      </ul>
+
+      <div class="info-box">
+        <h4>📋 Legal Oversight & Regulation</h4>
+        <p>Fideicomisos are heavily regulated:</p>
+        <ul>
+          <li>
+            <strong>Banking Commission (CNBV):</strong> Oversees all Mexican
+            banks and trust operations
+          </li>
+          <li>
+            <strong>Public Property Registry:</strong> Maintains official
+            records of all real estate ownership
+          </li>
+          <li>
+            <strong>Ministry of Foreign Affairs (SRE):</strong> Approves all
+            fideicomisos involving foreign beneficiaries
+          </li>
+          <li>
+            <strong>Mexican Notarios:</strong> Government-appointed legal
+            officials who authenticate all transactions
+          </li>
+        </ul>
+        <p>
+          Multiple layers of government oversight ensure the system functions
+          properly and protects your rights.
+        </p>
+      </div>
+
+      <h3>The 50-Year Term (And Why It Doesn't Matter)</h3>
+
+      <p>
+        Fideicomisos are established for 50-year terms. This raises an obvious
+        question:
+        <em>"What happens after 50 years?"</em>
+      </p>
+
+      <p><strong>Answer: You renew it.</strong></p>
+
+      <p>The renewal process is:</p>
+      <ul>
+        <li>Legally guaranteed by Mexican law—the bank cannot deny renewal</li>
+        <li>Simple: just sign paperwork and pay a small fee</li>
+        <li>Can happen multiple times—there's no limit on renewals</li>
+        <li>Can often be done automatically through the bank</li>
+      </ul>
+
+      <p>
+        Many banks now offer automatic renewal clauses when the fideicomiso is
+        first established, so you never have to think about it again.
+      </p>
+
+      <div class="warning-box">
+        <h4>⚠️ Common Myths About Fideicomisos (All FALSE)</h4>
+        <p><strong>Myth:</strong> "The bank owns your property."</p>
+        <p>
+          <strong>Reality:</strong> The bank holds title administratively only.
+          You hold all beneficial ownership rights.
+        </p>
+
+        <p><strong>Myth:</strong> "After 50 years, you lose the property."</p>
+        <p>
+          <strong>Reality:</strong> Renewal is guaranteed by law and can be
+          repeated indefinitely.
+        </p>
+
+        <p>
+          <strong>Myth:</strong> "The Mexican government can seize your
+          property."
+        </p>
+        <p>
+          <strong>Reality:</strong> Your property rights are constitutionally
+          protected. Expropriation (eminent domain) requires just compensation,
+          exactly like in the U.S.
+        </p>
+
+        <p><strong>Myth:</strong> "You can't get title insurance in Mexico."</p>
+        <p>
+          <strong>Reality:</strong> Multiple U.S. and Mexican companies offer
+          title insurance for fideicomiso properties.
+        </p>
+      </div>
+
+      <h3>The Role of the Mexican Notario</h3>
+
+      <p>
+        Unlike notaries in the U.S. or Canada (who simply witness signatures),
+        Mexican Notarios Públicos are highly trained legal professionals
+        appointed by the state government.
+      </p>
+
+      <h4>What a Notario Does:</h4>
+
+      <ul>
+        <li>
+          <strong>Title Verification:</strong> Researches property history and
+          confirms the seller has clear title
+        </li>
+        <li>
+          <strong>Lien Search:</strong> Ensures no mortgages, liens, or legal
+          claims exist against the property
+        </li>
+        <li>
+          <strong>Tax Calculation:</strong> Determines all taxes due on the
+          transaction and ensures payment
+        </li>
+        <li>
+          <strong>Document Authentication:</strong> Prepares and executes all
+          legal documents
+        </li>
+        <li>
+          <strong>Registration:</strong> Records the transaction in the Public
+          Property Registry
+        </li>
+        <li>
+          <strong>Government Liaison:</strong> Obtains permits from Ministry of
+          Foreign Affairs
+        </li>
+      </ul>
+
+      <p>
+        The notario is YOUR legal protector in the transaction—they ensure
+        everything is done correctly and legally.
+      </p>
+
+      <h3>Title Insurance: Additional Protection</h3>
+
+      <p>
+        While not required, we strongly recommend purchasing title insurance
+        from a company experienced in Mexican real estate:
+      </p>
+
+      <ul>
+        <li><strong>Stewart Title:</strong> Largest provider in Mexico</li>
+        <li><strong>First American Title:</strong> Well-established in Baja</li>
+        <li>
+          <strong>WFG National Title:</strong> Specializes in Mexico properties
+        </li>
+      </ul>
+
+      <p><strong>What title insurance covers:</strong></p>
+      <ul>
+        <li>Defects in title not discovered during initial search</li>
+        <li>Fraud or forgery in previous transactions</li>
+        <li>Liens or claims that surface after your purchase</li>
+        <li>Survey errors or boundary disputes</li>
+      </ul>
+
+      <p><strong>Typical cost:</strong> $1,000 - $2,500 (one-time premium)</p>
+
+      <h3>Annual Costs of Maintaining Your Fideicomiso</h3>
+
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th>Expense</th>
+            <th>Annual Cost</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Fideicomiso Renewal Fee</td>
+            <td>$500 - $800</td>
+            <td>Paid to trustee bank every year</td>
+          </tr>
+          <tr>
+            <td>Property Tax (Predial)</td>
+            <td>$200 - $800</td>
+            <td>
+              Extremely low compared to California; based on assessed value
+            </td>
+          </tr>
+          <tr>
+            <td>Homeowners Insurance</td>
+            <td>$600 - $1,500</td>
+            <td>Recommended but not required</td>
+          </tr>
+          <tr>
+            <td>HOA Fees (if applicable)</td>
+            <td>$1,200 - $4,800</td>
+            <td>Only if in gated community; includes security, maintenance</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box">
+        <h4>💡 How We Help with Legal Setup</h4>
+        <p>
+          While we're builders, not lawyers, we help coordinate your legal
+          setup:
+        </p>
+        <ul>
+          <li>
+            <strong>Referrals:</strong> We connect you with reputable notarios
+            who specialize in foreign buyer transactions
+          </li>
+          <li>
+            <strong>Bank Relationships:</strong> We work with clients who use
+            Scotiabank, HSBC, Banorte, and others—we know the process
+          </li>
+          <li>
+            <strong>Translation:</strong> We help translate and explain legal
+            documents
+          </li>
+          <li>
+            <strong>Coordination:</strong> We attend meetings with you (if
+            desired) to ensure construction needs are addressed
+          </li>
+          <li>
+            <strong>Title Insurance:</strong> We can introduce you to title
+            companies we've worked with
+          </li>
+        </ul>
+        <p>
+          Our goal is to make the legal process as smooth and understandable as
+          possible, so you can focus on designing your dream home.
+        </p>
+      </div>
+
+      <h3>Alternative: Mexican Corporation (Not Recommended for Residences)</h3>
+
+      <p>
+        Some buyers ask about forming a Mexican corporation to hold property
+        directly in coastal areas without a fideicomiso.
+      </p>
+
+      <p><strong>The reality:</strong></p>
+      <ul>
+        <li>
+          Mexican law allows corporations to own coastal land
+          <strong>only for non-residential, commercial purposes</strong>
+        </li>
+        <li>
+          Using a corporation to bypass the fideicomiso requirement for a
+          personal residence is <strong>illegal</strong>
+        </li>
+        <li>
+          If discovered, you could face fines, property seizure, or inability to
+          sell
+        </li>
+        <li>
+          Corporations have ongoing compliance requirements, accounting costs,
+          and annual filings
+        </li>
+      </ul>
+
+      <p>
+        <strong>Bottom line:</strong> For residential properties, the
+        fideicomiso is the legal, secure, and recommended approach.
+      </p>
+
+      <h3>Your Investment is Secure</h3>
+
+      <p>After reading this chapter, you should feel confident that:</p>
+
+      <ul>
+        <li>
+          Foreign property ownership in Mexico is
+          <strong>constitutionally protected</strong>
+        </li>
+        <li>
+          The fideicomiso system has
+          <strong>50+ years of successful precedent</strong>
+        </li>
+        <li>Your rights are <strong>identical to direct ownership</strong></li>
+        <li>
+          Multiple layers of oversight <strong>protect your investment</strong>
+        </li>
+        <li>
+          Hundreds of thousands of North Americans own property this way
+          <strong>without issues</strong>
+        </li>
+      </ul>
+
+      <p>
+        The legal framework is solid, tested, and reliable. Now let's talk about
+        what you're going to build on that legally protected property...
+      </p>
+    </div>
+
+    <!-- CHAPTER 3: BUDGET PLANNING -->
+    <div class="chapter">
+      <div class="chapter-number">CHAPTER 3</div>
+      <h2>Budget Planning & Hidden Costs</h2>
+
+      <p>Let's get straight to the numbers. This is what you came here for.</p>
+
+      <h3>The Bottom Line</h3>
+
+      <p>
+        Building a comparable custom home in Baja California costs
+        <strong>40-60% less</strong> than building in coastal Southern
+        California. These are real construction costs that include materials,
+        labor, and the actual building—not land, not legal setup, not
+        appliances.
+      </p>
+
+      <p>Here's what that looks like in real dollars:</p>
+
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th>Home Specs</th>
+            <th>Baja California</th>
+            <th>San Diego County</th>
+            <th>Your Savings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2,000 sq ft, 3-bed, ocean view</td>
+            <td>$360,000 - $440,000</td>
+            <td>$800,000 - $1,000,000</td>
+            <td>$440,000+</td>
+          </tr>
+          <tr>
+            <td>2,500 sq ft, 4-bed with pool</td>
+            <td>$500,000 - $625,000</td>
+            <td>$1,000,000 - $1,400,000</td>
+            <td>$600,000+</td>
+          </tr>
+          <tr>
+            <td>3,500 sq ft, 5-bed luxury</td>
+            <td>$750,000 - $1,050,000</td>
+            <td>$1,600,000 - $2,300,000</td>
+            <td>$900,000+</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Cost Per Square Foot Comparison</h3>
+
+      <p>Let's break it down by quality level:</p>
+
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th>Quality Level</th>
+            <th>Baja (per sq ft)</th>
+            <th>California (per sq ft)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Standard Finishes</td>
+            <td>$180 - $220</td>
+            <td>$400 - $500</td>
+          </tr>
+          <tr>
+            <td>Mid-Range Finishes</td>
+            <td>$220 - $280</td>
+            <td>$500 - $650</td>
+          </tr>
+          <tr>
+            <td>High-End Finishes</td>
+            <td>$280 - $350</td>
+            <td>$650 - $800</td>
+          </tr>
+          <tr>
+            <td>Luxury Custom</td>
+            <td>$350 - $450</td>
+            <td>$800 - $1,200+</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box">
+        <h4>📊 What's Included in These Construction Costs?</h4>
+        <p><strong>Included:</strong></p>
+        <ul>
+          <li>Site preparation and foundation work</li>
+          <li>Complete structural construction</li>
+          <li>All finish materials (flooring, tile, paint, etc.)</li>
+          <li>Plumbing, electrical, and HVAC systems installation</li>
+          <li>Built-in cabinetry and countertops</li>
+          <li>Doors, windows, and hardware</li>
+          <li>Basic landscaping and exterior hardscape</li>
+        </ul>
+        <p>
+          <strong
+            >NOT Included (Additional costs you'll need to budget for):</strong
+          >
+        </p>
+        <ul>
+          <li>Land purchase</li>
+          <li>Architectural and engineering plans ($8K-$15K typically)</li>
+          <li>Building permits and municipal fees ($3K-$8K typically)</li>
+          <li>
+            Fideicomiso setup and legal fees (we help coordinate with notaries)
+          </li>
+          <li>
+            Major appliances (refrigerator, range, dishwasher, washer/dryer)
+          </li>
+          <li>Furniture and décor</li>
+          <li>Pool equipment and extensive landscaping upgrades</li>
+        </ul>
+      </div>
+
+      <h3>Land Cost Comparison</h3>
+
+      <p>The savings extend to land acquisition as well:</p>
+
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>Baja California</th>
+            <th>San Diego County</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ocean view lot (½ acre)</td>
+            <td>$100,000 - $250,000</td>
+            <td>$500,000 - $1,500,000</td>
+          </tr>
+          <tr>
+            <td>Beachfront lot (½ acre)</td>
+            <td>$200,000 - $400,000</td>
+            <td>$1,000,000 - $3,000,000+</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Why Is It So Much Cheaper?</h3>
+
+      <p>
+        The cost difference isn't about cutting corners. Here's what drives the
+        savings:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Labor costs:</strong> Skilled Mexican tradespeople earn fair
+          wages that are 50-60% lower than U.S. union rates
+        </li>
+        <li>
+          <strong>Material sourcing:</strong> Many materials are sourced locally
+          or from Mexico manufacturers at lower cost
+        </li>
+        <li>
+          <strong>Permit fees:</strong> Municipal fees in Baja are a fraction of
+          California's permit costs
+        </li>
+        <li>
+          <strong>Land values:</strong> Baja hasn't experienced the same real
+          estate inflation as coastal California
+        </li>
+        <li>
+          <strong>Regulatory environment:</strong> Streamlined building codes
+          (while still maintaining safety standards)
+        </li>
+      </ul>
+
+      <div class="warning-box">
+        <h4>⚠️ Important: Quality Standards</h4>
+        <p>
+          Lower cost does NOT mean lower quality—if you choose the right
+          builder. Reputable builders in Baja use the same materials available
+          in the U.S. (many imported from the same manufacturers) and build to
+          North American standards.
+        </p>
+        <p>
+          What you're NOT getting at these prices: Substandard materials,
+          unskilled labor, or buildings that won't last. What you ARE getting:
+          The same home you'd build in California, at Mexican labor rates.
+        </p>
+      </div>
+
+      <h3>Real-World Total Project Example</h3>
+
+      <div class="highlight-box">
+        <h4>🏠 Case Study: The Martinez Family (San Diego → Rosarito)</h4>
+        <p>
+          <strong>Project:</strong> 2,400 sq ft, 3-bedroom California
+          Contemporary with ocean views
+        </p>
+        <p><strong>Complete Breakdown:</strong></p>
+        <ul>
+          <li>Land purchase: $185,000</li>
+          <li>Construction cost: $528,000</li>
+          <li>Architectural plans & engineering: $12,000</li>
+          <li>Building permits: $5,500</li>
+          <li>Fideicomiso setup & legal: $8,000</li>
+          <li>Appliances & upgrades: $15,000</li>
+        </ul>
+        <p><strong>Total Project Cost:</strong> $753,500</p>
+        <p>
+          <strong>Equivalent in San Diego:</strong> $1,800,000+ (if you could
+          find comparable land)
+        </p>
+        <p><strong>Actual Savings:</strong> $1,046,500+</p>
+        <p>
+          <em
+            >"We couldn't believe we could afford a custom beachfront home with
+            the views we wanted. In San Diego, we would have been priced out
+            completely. Now we have our dream retirement home and still have
+            money left to enjoy it."</em
+          >
+          —Jennifer Martinez
+        </p>
+      </div>
+
+      <h3>The Bottom Line on Costs</h3>
+
+      <p>
+        If you're comparing apples to apples—same square footage, same quality
+        finishes, similar ocean views—you'll save
+        <strong>$400,000 to $1,000,000+</strong> by building in Baja instead of
+        coastal California.
+      </p>
+
+      <p>That's not marketing hype. That's math.</p>
+
+      <p>
+        Now that you understand the financial opportunity, let's talk about how
+        to secure your piece of Baja paradise...
+      </p>
+    </div>
+
+    <!-- CHAPTER 6: THE BUILD PROCESS -->
+    <div class="chapter">
+      <div class="chapter-number">CHAPTER 6</div>
+      <h2>The Build Process (Step-by-Step)</h2>
+
+      <p>
+        Now that you understand the costs, legal framework, and design options,
+        let's walk through exactly what happens from your first conversation
+        with a builder to the day you get your keys.
+      </p>
+
+      <h3>Phase 1: Discovery & Design Consultation (1-2 Weeks)</h3>
+
+      <div class="timeline-step">
+        <h4>Initial Consultation</h4>
+        <p>This is where we understand what "home" means to you. We discuss:</p>
+        <ul>
+          <li>Your vision, lifestyle needs, and must-have features</li>
+          <li>Budget parameters and financing approach</li>
+          <li>Timeline expectations and flexibility</li>
+          <li>Property location preferences</li>
+        </ul>
+
+        <h4>Site Visit</h4>
+        <p>
+          If you already own land, we conduct a thorough site evaluation. If
+          not, we can help identify suitable properties based on your criteria.
+        </p>
+
+        <h4>Vision Board Creation</h4>
+        <p>
+          We compile your design preferences, reference images, and priority
+          features into a clear vision document.
+        </p>
+
+        <h4>Budget Framework</h4>
+        <p>
+          We provide a preliminary cost estimate based on your specifications
+          and site conditions.
+        </p>
+      </div>
+
+      <div class="info-box">
+        <h4>💡 What to Bring to Your First Meeting</h4>
+        <ul>
+          <li>Photos of homes/styles you love</li>
+          <li>List of must-have vs. nice-to-have features</li>
+          <li>Budget range (be honest—we can work with various budgets)</li>
+          <li>Property deed if you own land</li>
+          <li>Questions you need answered</li>
+        </ul>
+      </div>
+
+      <h3>Phase 2: Concept + Budget Alignment (2-3 Weeks)</h3>
+
+      <div class="timeline-step">
+        <h4>Preliminary Design Development</h4>
+        <p>
+          Our architects create initial floor plans and exterior concepts that
+          match your vision and budget.
+        </p>
+
+        <h4>3D Concept Renders</h4>
+        <p>
+          You'll see realistic 3D visualizations of your home before
+          construction begins—no guesswork about what the final product will
+          look like.
+        </p>
+
+        <h4>Detailed Cost Breakdown</h4>
+        <p>We provide transparent itemized costs including:</p>
+        <ul>
+          <li>Construction costs by phase</li>
+          <li>Material selections and alternatives</li>
+          <li>Site work requirements</li>
+          <li>Estimated additional costs (permits, plans, appliances)</li>
+          <li>Contingency reserves</li>
+        </ul>
+
+        <h4>Material Selections</h4>
+        <p>Together we select:</p>
+        <ul>
+          <li>Flooring options</li>
+          <li>Fixtures and finishes</li>
+          <li>Appliance packages (purchased separately)</li>
+          <li>Paint colors and tile selections</li>
+          <li>Windows and door styles</li>
+        </ul>
+      </div>
+
+      <div class="highlight-box">
+        <h4>✓ Decision Point: Design Approval</h4>
+        <p>
+          Before moving forward, you'll approve the preliminary design and
+          confirm the budget aligns with your investment goals. This is your
+          opportunity to make changes before we invest time in detailed plans.
+        </p>
+      </div>
+
+      <h3>Phase 3: Architectural & Engineering Plans (4-6 Weeks)</h3>
+
+      <div class="timeline-step">
+        <h4>Complete Blueprint Development</h4>
+        <p>
+          Licensed architects create detailed construction documents including:
+        </p>
+        <ul>
+          <li>Complete floor plans with dimensions</li>
+          <li>Elevation drawings (all four sides)</li>
+          <li>Foundation and framing plans</li>
+          <li>Roof structure and drainage</li>
+          <li>Door and window schedules</li>
+        </ul>
+
+        <h4>Structural Engineering</h4>
+        <p>Engineers design:</p>
+        <ul>
+          <li>Foundation specifications for your soil type</li>
+          <li>Seismic reinforcement (critical in Baja)</li>
+          <li>Load-bearing wall calculations</li>
+          <li>Hurricane-rated specifications for coastal properties</li>
+        </ul>
+
+        <h4>MEP Systems Design</h4>
+        <p>Mechanical, Electrical, and Plumbing plans detail:</p>
+        <ul>
+          <li>Electrical panel sizing and circuit layout</li>
+          <li>Plumbing fixtures and drainage systems</li>
+          <li>HVAC requirements (if applicable)</li>
+          <li>Solar panel integration (if desired)</li>
+        </ul>
+      </div>
+
+      <div class="info-box">
+        <h4>📐 Why This Phase Takes Time</h4>
+        <p>Detailed plans are crucial for three reasons:</p>
+        <ul>
+          <li>
+            <strong>Permit approval:</strong> Plans must meet all municipal
+            requirements
+          </li>
+          <li>
+            <strong>Construction accuracy:</strong> Detailed specs prevent
+            costly field changes
+          </li>
+          <li>
+            <strong>Cost control:</strong> Complete plans allow accurate pricing
+            and prevent surprises
+          </li>
+        </ul>
+        <p>Rushing this phase always costs more money in the long run.</p>
+      </div>
+
+      <h3>Phase 4: Permits & Legal Coordination (3-4 Weeks)</h3>
+
+      <div class="timeline-step">
+        <h4>Fideicomiso Coordination (If Needed)</h4>
+        <p>
+          We help coordinate with your notary and bank to complete the property
+          trust setup, connecting you with trusted professionals who can ensure
+          you have legal ownership before construction begins. While the
+          fideicomiso fees are separate from construction costs, we guide you
+          through this process to ensure everything is handled properly.
+        </p>
+
+        <h4>Building Permit Management</h4>
+        <p>
+          We handle the entire permit application process on your behalf,
+          submitting complete plans to the municipality and managing all
+          approvals. This includes:
+        </p>
+        <ul>
+          <li>Plan review and any necessary corrections</li>
+          <li>Environmental and urban impact studies</li>
+          <li>Coordination with municipal inspectors</li>
+          <li>Payment of all permit fees (billed separately)</li>
+          <li>Official permit issuance and documentation</li>
+        </ul>
+
+        <h4>Construction Contract Finalization</h4>
+        <p>We execute a detailed contract specifying:</p>
+        <ul>
+          <li>Complete scope of work and specifications</li>
+          <li>Fixed pricing in USD</li>
+          <li>Payment schedule tied to completion milestones</li>
+          <li>Timeline with target completion date</li>
+          <li>Change order procedures</li>
+          <li>Warranty terms and coverage</li>
+        </ul>
+      </div>
+
+      <div class="warning-box">
+        <h4>⚠️ Never Start Construction Without Permits</h4>
+        <p>
+          Some contractors may suggest starting before permits are issued to
+          "save time." <strong>Never do this.</strong> Building without permits
+          can result in:
+        </p>
+        <ul>
+          <li>Mandatory demolition of completed work</li>
+          <li>Heavy fines and legal complications</li>
+          <li>Inability to connect utilities</li>
+          <li>Problems selling the property later</li>
+        </ul>
+        <p>We always secure proper permits before breaking ground.</p>
+      </div>
+
+      <h3>Phase 5: Construction (10-12 Months)</h3>
+
+      <div class="timeline-step">
+        <h4>Site Preparation & Foundation (4-6 weeks)</h4>
+        <ul>
+          <li>Site clearing and grading</li>
+          <li>Utility connections and stubouts</li>
+          <li>Foundation excavation</li>
+          <li>Rebar installation and inspection</li>
+          <li>Concrete foundation pour and curing</li>
+        </ul>
+
+        <h4>Framing & Structure (8-10 weeks)</h4>
+        <ul>
+          <li>Floor system installation</li>
+          <li>Wall framing and seismic bracing</li>
+          <li>Roof framing and sheathing</li>
+          <li>Window and door installation</li>
+          <li>Waterproofing and weatherization</li>
+        </ul>
+
+        <h4>Rough Systems (6-8 weeks)</h4>
+        <ul>
+          <li>Electrical rough-in (wiring, panels, outlets)</li>
+          <li>Plumbing rough-in (supply and drain lines)</li>
+          <li>HVAC rough-in (if applicable)</li>
+          <li>Municipal inspections before closing walls</li>
+        </ul>
+
+        <h4>Interior & Exterior Finishes (10-14 weeks)</h4>
+        <ul>
+          <li>Drywall installation and finishing</li>
+          <li>Interior and exterior paint</li>
+          <li>Flooring and tile installation</li>
+          <li>Cabinetry and countertops</li>
+          <li>
+            Fixture installation (homeowner-supplied appliances installed)
+          </li>
+          <li>Exterior finishes and architectural details</li>
+        </ul>
+
+        <h4>Final Systems & Landscaping (4-6 weeks)</h4>
+        <ul>
+          <li>Electrical and plumbing final connections</li>
+          <li>Appliance hookups and testing</li>
+          <li>Lighting and fixture testing</li>
+          <li>Exterior hardscape and basic landscaping</li>
+          <li>Final municipal inspections</li>
+        </ul>
+      </div>
+
+      <div class="info-box">
+        <h4>📸 Remote Owner Updates</h4>
+        <p>If you're not living in Baja during construction, you'll receive:</p>
+        <ul>
+          <li>Weekly photo and video updates</li>
+          <li>Progress reports tied to payment milestones</li>
+          <li>Scheduled video walkthrough tours</li>
+          <li>Direct communication before every payment stage</li>
+          <li>Access to view progress anytime via our client portal</li>
+        </ul>
+      </div>
+
+      <h3>Phase 6: Final Walkthrough & Handover (2-3 Weeks)</h3>
+
+      <div class="timeline-step">
+        <h4>Pre-Final Walkthrough</h4>
+        <p>We conduct a detailed walkthrough together to verify:</p>
+        <ul>
+          <li>Finish quality and craftsmanship</li>
+          <li>All fixtures and systems functionality</li>
+          <li>Compliance with plans and specifications</li>
+          <li>Any final touch-ups needed</li>
+        </ul>
+
+        <h4>Punch List Completion</h4>
+        <p>
+          Any remaining items are documented, prioritized, and resolved
+          promptly.
+        </p>
+
+        <h4>Final Documentation Package</h4>
+        <ul>
+          <li>All approved permits and inspection certificates</li>
+          <li>Warranties and product manuals</li>
+          <li>As-built architectural plans</li>
+          <li>Utility account registrations</li>
+          <li>Maintenance guidelines and care instructions</li>
+        </ul>
+
+        <h4>Keys & Celebration 🎉</h4>
+        <p>
+          You receive the keys to your completed custom home—built exactly as
+          you envisioned.
+        </p>
+      </div>
+
+      <div class="highlight-box">
+        <h4>✓ What Happens After Move-In</h4>
+        <p>Our relationship doesn't end at handover:</p>
+        <ul>
+          <li>1-year structural warranty on all work</li>
+          <li>30-day priority response for any issues</li>
+          <li>Ongoing support for questions or concerns</li>
+          <li>Referrals for local maintenance professionals</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CHAPTER 7 -->
+    <div class="chapter">
+      <div class="chapter-number">CHAPTER 7</div>
+      <h2>Timeline Expectations</h2>
+
+      <p>
+        While every project is unique, most custom homes in Baja follow this
+        general timeline from first consultation to move-in:
+      </p>
+
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>Estimated Duration</th>
+            <th>Key Activities</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Design & Budgeting</td>
+            <td>1–2 months</td>
+            <td>Consultations, preliminary designs, material selections</td>
+          </tr>
+          <tr>
+            <td>Plans & Engineering</td>
+            <td>1–1.5 months</td>
+            <td>Detailed blueprints, structural engineering</td>
+          </tr>
+          <tr>
+            <td>Permits & Legal</td>
+            <td>1–1.5 months</td>
+            <td>Permit applications, fideicomiso coordination</td>
+          </tr>
+          <tr>
+            <td>Construction</td>
+            <td>10–12 months</td>
+            <td>Foundation to final finishes</td>
+          </tr>
+          <tr>
+            <td>Final Walkthrough</td>
+            <td>2–3 weeks</td>
+            <td>Punch list, inspections, handover</td>
+          </tr>
+          <tr>
+            <td><strong>Total Project</strong></td>
+            <td><strong>14–18 months</strong></td>
+            <td><strong>First meeting to move-in</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>What Can Affect Your Timeline?</h3>
+
+      <p>Several factors can accelerate or extend your project timeline:</p>
+
+      <h4>Factors That Speed Things Up:</h4>
+      <ul>
+        <li>Pre-owned land with clear title</li>
+        <li>Quick decision-making on design and materials</li>
+        <li>Flexible design (fewer custom elements)</li>
+        <li>Building during dry season (Nov-May)</li>
+        <li>Having financing ready before starting</li>
+      </ul>
+
+      <h4>Factors That May Extend Timeline:</h4>
+      <ul>
+        <li>Complex architectural designs or extensive customization</li>
+        <li>Land purchase complications or title issues</li>
+        <li>Major design changes mid-construction</li>
+        <li>Weather delays (especially during rainy season)</li>
+        <li>Specialty material delays or custom orders</li>
+        <li>Municipality permit backlogs (rare but possible)</li>
+      </ul>
+
+      <div class="highlight-box">
+        <h4>⏱️ Reality Check on Timelines</h4>
+        <p>
+          We always provide realistic timelines, not optimistic promises. A
+          properly built home takes time—rushing construction to meet an
+          artificial deadline always compromises quality.
+        </p>
+        <p>
+          That said, we're committed to efficient project management and will
+          keep you informed of progress every step of the way. Most delays are
+          avoidable with proper planning, which is why we invest so much time in
+          the design and planning phases.
+        </p>
+      </div>
+
+      <h3>Seasonal Considerations</h3>
+
+      <p>Baja's climate affects construction timelines:</p>
+
+      <ul>
+        <li>
+          <strong>Dry Season (November - May):</strong> Ideal building
+          conditions, minimal weather delays, consistent progress
+        </li>
+        <li>
+          <strong>Rainy Season (June - October):</strong> Possible delays for
+          exterior work, foundation curing takes longer, more careful scheduling
+          needed
+        </li>
+      </ul>
+
+      <p>
+        We plan projects strategically around weather patterns to minimize
+        delays and ensure quality work.
+      </p>
+    </div>
+
+    <!-- CHAPTER 9 -->
+    <div class="chapter">
+      <div class="chapter-number">CHAPTER 9</div>
+      <h2>Common Mistakes to Avoid</h2>
+
+      <p>
+        Learn from others' expensive lessons. Here are the most common mistakes
+        we see buyers make—and how to avoid them:
+      </p>
+
+      <h3>Mistake #1: Choosing Based on Price Alone</h3>
+
+      <div class="warning-box">
+        <h4>❌ The Problem</h4>
+        <p>
+          You get three bids: $280K, $320K, and $380K for the same house. You
+          choose the $280K bid to save money.
+        </p>
+        <h4>💡 Why This Fails</h4>
+        <p>
+          The lowest bidder often: uses substandard materials, employs unskilled
+          labor, excludes critical items from the quote, or disappears
+          mid-project. You'll end up spending $400K+ to fix their work.
+        </p>
+        <h4>✓ The Solution</h4>
+        <p>
+          Evaluate bids based on: detailed scope of work, material
+          specifications, builder references, licensing and insurance, and
+          realistic timelines. The middle bid is often the sweet spot.
+        </p>
+      </div>
+
+      <h3>Mistake #2: Skipping the Fideicomiso</h3>
+
+      <p>
+        Some buyers try to avoid fideicomiso costs by putting property in a
+        Mexican friend's name or using verbal agreements.
+      </p>
+
+      <p><strong>Why this is catastrophic:</strong></p>
+      <ul>
+        <li>You have zero legal ownership</li>
+        <li>The "friend" can sell your property without your consent</li>
+        <li>You can't get title insurance or financing</li>
+        <li>Impossible to sell legally later</li>
+      </ul>
+
+      <p>
+        <strong>The cost of a fideicomiso ($7K-$10K) is cheap insurance</strong>
+        for protecting a $500K+ investment. We help you coordinate with
+        reputable banks and notaries to ensure this is done correctly.
+      </p>
+
+      <h3>Mistake #3: Starting Without Complete Plans</h3>
+
+      <div class="warning-box">
+        <h4>❌ The Problem</h4>
+        <p>
+          "Let's save time and money—we'll figure out the details as we build."
+        </p>
+        <h4>💡 Why This Fails</h4>
+        <p>
+          Without detailed plans: costs balloon with "unforeseen" issues,
+          timeline extends indefinitely, finished product doesn't match
+          expectations, and permits can't be properly obtained.
+        </p>
+        <h4>✓ The Solution</h4>
+        <p>
+          Invest in complete architectural and engineering plans upfront. Yes,
+          it costs $10K-$15K. Yes, it takes 1-2 months. It also prevents $50K+
+          in cost overruns and ensures your home is exactly what you want.
+        </p>
+      </div>
+
+      <h3>Mistake #4: Underestimating Total Project Costs</h3>
+
+      <p>Many buyers budget for construction only, forgetting about:</p>
+
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th>Often-Forgotten Cost</th>
+            <th>Typical Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Architectural plans & engineering</td>
+            <td>$8,000 - $15,000</td>
+          </tr>
+          <tr>
+            <td>Building permits & fees</td>
+            <td>$3,000 - $8,000</td>
+          </tr>
+          <tr>
+            <td>Fideicomiso setup</td>
+            <td>$7,000 - $10,000</td>
+          </tr>
+          <tr>
+            <td>Major appliances</td>
+            <td>$8,000 - $20,000</td>
+          </tr>
+          <tr>
+            <td>Furniture & décor</td>
+            <td>$15,000 - $50,000+</td>
+          </tr>
+          <tr>
+            <td>Landscaping upgrades</td>
+            <td>$5,000 - $25,000</td>
+          </tr>
+          <tr>
+            <td>Utility connections</td>
+            <td>$2,000 - $5,000</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <strong>Rule of thumb:</strong> Budget an additional 15-25% beyond
+        construction costs for these "extras."
+      </p>
+
+      <h3>Mistake #5: Not Visiting the Site Regularly</h3>
+
+      <p>
+        If you live in the U.S., it's tempting to let the builder handle
+        everything. But regular site visits (or hiring a local inspector) help:
+      </p>
+
+      <ul>
+        <li>Catch issues early before they're covered up</li>
+        <li>Verify quality and progress</li>
+        <li>Make timely decisions on inevitable field questions</li>
+        <li>Build relationship with your builder and crew</li>
+      </ul>
+
+      <p>
+        We provide weekly photo/video updates, but there's no substitute for
+        seeing your home in person every 4-6 weeks during construction.
+      </p>
+
+      <h3>Mistake #6: Paying Too Much Upfront</h3>
+
+      <div class="warning-box">
+        <h4>⚠️ Payment Red Flags</h4>
+        <p>Never work with a builder who demands:</p>
+        <ul>
+          <li>50%+ payment before starting</li>
+          <li>Full payment before completion</li>
+          <li>Cash-only payments with no paper trail</li>
+          <li>Payments that don't align with completion milestones</li>
+        </ul>
+        <p>
+          <strong>Legitimate builders</strong> structure payments based on
+          completed work: typically 10-20% to start, then payments tied to
+          foundation, framing, rough-in, finishes, and final completion.
+        </p>
+      </div>
+
+      <h3>Mistake #7: Ignoring Red Flags</h3>
+
+      <p>Trust your instincts. Walk away if a builder:</p>
+
+      <ul>
+        <li>Pressures you to sign contracts immediately</li>
+        <li>Can't provide references from past clients</li>
+        <li>Offers prices dramatically lower than other quotes</li>
+        <li>Suggests shortcuts on permits or legal requirements</li>
+        <li>Has poor communication or doesn't return calls</li>
+        <li>Won't provide detailed written contracts</li>
+      </ul>
+
+      <div class="highlight-box">
+        <h4>✓ How We Do Things Differently</h4>
+        <p>
+          At Baja Liberty Builders, we: provide detailed written contracts with
+          fixed pricing, structure payments based on milestone completion, help
+          coordinate all legal requirements properly, provide extensive
+          references and past project tours, maintain transparent communication
+          throughout, and secure all required permits before construction
+          begins.
+        </p>
+        <p>We'd rather lose a project than build it wrong.</p>
+      </div>
+    </div>
+
+    <!-- CHAPTER 10 -->
+    <div class="chapter">
+      <div class="chapter-number">CHAPTER 10</div>
+      <h2>Complete Planning Checklist</h2>
+
+      <p>
+        Use this checklist to track your progress from initial research to
+        moving into your completed home:
+      </p>
+
+      <h3>Phase 1: Research & Planning</h3>
+
+      <div class="checklist-item">
+        Define your budget range (construction + additional costs)
+      </div>
+      <div class="checklist-item">
+        Determine timeline expectations and flexibility
+      </div>
+      <div class="checklist-item">
+        Create list of must-have features vs. nice-to-haves
+      </div>
+      <div class="checklist-item">
+        Research Baja neighborhoods (Rosarito, La Misión, Ensenada)
+      </div>
+      <div class="checklist-item">
+        Gather design inspiration (photos, magazines, Pinterest)
+      </div>
+
+      <h3>Phase 2: Land & Legal</h3>
+
+      <div class="checklist-item">
+        Identify potential land options or secure existing lot
+      </div>
+      <div class="checklist-item">
+        Verify land has clear title and building rights
+      </div>
+      <div class="checklist-item">
+        Confirm utility access (water, electric, internet)
+      </div>
+      <div class="checklist-item">
+        Set up fideicomiso with reputable bank (if needed)
+      </div>
+      <div class="checklist-item">
+        Complete land purchase with proper legal documentation
+      </div>
+
+      <h3>Phase 3: Builder Selection</h3>
+
+      <div class="checklist-item">
+        Research and interview 3-5 licensed builders
+      </div>
+      <div class="checklist-item">
+        Visit past projects and speak with former clients
+      </div>
+      <div class="checklist-item">
+        Verify licenses, insurance, and credentials
+      </div>
+      <div class="checklist-item">
+        Request detailed bids with itemized costs
+      </div>
+      <div class="checklist-item">
+        Review contracts thoroughly before signing
+      </div>
+
+      <h3>Phase 4: Design & Planning</h3>
+
+      <div class="checklist-item">Complete initial design consultations</div>
+      <div class="checklist-item">
+        Review and approve preliminary floor plans
+      </div>
+      <div class="checklist-item">Select finish materials and fixtures</div>
+      <div class="checklist-item">Approve final architectural plans</div>
+      <div class="checklist-item">
+        Review and sign detailed construction contract
+      </div>
+
+      <h3>Phase 5: Pre-Construction</h3>
+
+      <div class="checklist-item">
+        Finalize engineering plans and specifications
+      </div>
+      <div class="checklist-item">Submit for and obtain building permits</div>
+      <div class="checklist-item">
+        Secure construction financing (if needed)
+      </div>
+      <div class="checklist-item">Confirm construction start date</div>
+      <div class="checklist-item">Set up payment schedule and procedures</div>
+
+      <h3>Phase 6: During Construction</h3>
+
+      <div class="checklist-item">Make initial payment to commence work</div>
+      <div class="checklist-item">
+        Schedule regular site visits (every 4-6 weeks)
+      </div>
+      <div class="checklist-item">Review weekly progress updates</div>
+      <div class="checklist-item">Make timely decisions on field questions</div>
+      <div class="checklist-item">
+        Approve milestone completions before payments
+      </div>
+      <div class="checklist-item">
+        Order appliances 2-3 months before completion
+      </div>
+
+      <h3>Phase 7: Final Steps</h3>
+
+      <div class="checklist-item">Conduct pre-final walkthrough</div>
+      <div class="checklist-item">Document punch list items</div>
+      <div class="checklist-item">Verify all punch list completion</div>
+      <div class="checklist-item">Obtain final municipal inspections</div>
+      <div class="checklist-item">Set up utility accounts in your name</div>
+      <div class="checklist-item">Receive all warranties and documentation</div>
+      <div class="checklist-item">Complete final payment and receive keys</div>
+      <div class="checklist-item">Purchase homeowners insurance</div>
+
+      <h3>Phase 8: Move-In</h3>
+
+      <div class="checklist-item">Schedule furniture delivery</div>
+      <div class="checklist-item">Install appliances and test all systems</div>
+      <div class="checklist-item">Complete any final landscaping</div>
+      <div class="checklist-item">Establish local maintenance contacts</div>
+      <div class="checklist-item">Celebrate your new home! 🎉</div>
+
+      <div class="highlight-box">
+        <h4>📋 Download This Checklist</h4>
+        <p>
+          Want a printable version of this checklist? Contact us and we'll send
+          you a detailed project planning workbook that you can use throughout
+          your build.
+        </p>
+      </div>
+    </div>
+
+    <!-- APPENDIX -->
+    <div class="chapter">
+      <div class="chapter-number">APPENDIX</div>
+      <h2>Resources & Contacts</h2>
+
+      <p>
+        Here are the types of professionals and resources you'll need during
+        your build. We're happy to provide specific referrals based on your
+        project location.
+      </p>
+
+      <h3>Legal & Financial</h3>
+
+      <ul>
+        <li>
+          <strong>Notaries Public (Notarios):</strong> Handle property transfers
+          and legal documentation
+        </li>
+        <li>
+          <strong>Banks Offering Fideicomisos:</strong> Major Mexican banks
+          (Banamex, HSBC, Santander)
+        </li>
+        <li>
+          <strong>Title Companies:</strong> Research property titles and provide
+          insurance
+        </li>
+        <li>
+          <strong>Real Estate Attorneys:</strong> Review contracts and legal
+          documents
+        </li>
+      </ul>
+
+      <h3>Design & Planning</h3>
+
+      <ul>
+        <li>
+          <strong>Licensed Architects:</strong> Create construction plans and
+          manage design
+        </li>
+        <li>
+          <strong>Structural Engineers:</strong> Design foundations and
+          structural systems
+        </li>
+        <li>
+          <strong>Interior Designers:</strong> Help with finish selections and
+          décor
+        </li>
+        <li>
+          <strong>Landscape Architects:</strong> Design outdoor spaces and
+          plantings
+        </li>
+      </ul>
+
+      <h3>Municipal Offices</h3>
+
+      <ul>
+        <li>
+          <strong>Rosarito Municipal Building Department:</strong> Permits and
+          inspections
+        </li>
+        <li>
+          <strong>Ensenada Development Office:</strong> Building permits and
+          zoning
+        </li>
+        <li>
+          <strong>Water Districts (CESPT):</strong> Water connection
+          applications
+        </li>
+        <li>
+          <strong>CFE (Electric Company):</strong> Electrical service
+          connections
+        </li>
+      </ul>
+
+      <h3>Utilities & Services</h3>
+
+      <ul>
+        <li>
+          <strong>Internet Providers:</strong> Telnor, TotalPlay, Starlink
+        </li>
+        <li><strong>Propane Suppliers:</strong> For heating and cooking</li>
+        <li>
+          <strong>Solar Installation:</strong> For off-grid or supplemental
+          power
+        </li>
+        <li>
+          <strong>Water Delivery:</strong> Backup water service (if needed)
+        </li>
+      </ul>
+
+      <h3>Ongoing Maintenance</h3>
+
+      <ul>
+        <li>
+          <strong>Property Managers:</strong> For vacation rental or absent
+          owners
+        </li>
+        <li>
+          <strong>Handyman Services:</strong> General repairs and maintenance
+        </li>
+        <li><strong>Pool Service:</strong> Chemical balancing and cleaning</li>
+        <li><strong>Landscaping:</strong> Ongoing garden and yard care</li>
+      </ul>
+
+      <div class="info-box">
+        <h4>🤝 Our Network</h4>
+        <p>
+          Through years of building in Baja, we've developed relationships with
+          trusted professionals in every category. When you work with Baja
+          Liberty Builders, we connect you with vetted contacts who will treat
+          you fairly and provide quality service.
+        </p>
+        <p>
+          This network is one of the most valuable assets we provide—not just
+          building your home, but helping you navigate every aspect of property
+          ownership in Baja.
+        </p>
+      </div>
+
+      <h3>Helpful Websites</h3>
+
+      <ul>
+        <li>
+          <strong>Baja Real Estate Groups:</strong> Forums and Facebook groups
+          for expat communities
+        </li>
+        <li>
+          <strong>U.S. Consulate in Tijuana:</strong> American citizen services
+          and resources
+        </li>
+        <li>
+          <strong>Mexican Government Sites:</strong> Immigration and legal
+          information
+        </li>
+        <li>
+          <strong>Weather Services:</strong> Local forecasts and seasonal
+          patterns
+        </li>
+      </ul>
+
+      <div class="highlight-box">
+        <h4>📞 Ready to Start Your Project?</h4>
+        <p>
+          If you're considering building in Baja, the next step is a
+          conversation — not a commitment.
+        </p>
+        <p>
+          During a free consultation, we'll: answer your specific questions
+          honestly, review your budget and timeline goals, discuss your design
+          vision and site options, and provide transparent guidance on whether
+          building in Baja makes sense for you.
+        </p>
+        <p>
+          <strong>Baja Liberty Builders</strong><br />
+          Custom Homes • Transparent Pricing • North American Standards
+        </p>
+        <p style="margin-top: 20px; font-size: 18px">
+          <strong>Contact Us Today:</strong><br />
+          📧 info@bajalibertybuilders.com<br />
+          📱 +52 (664) 123-4567<br />
+          🌐 www.bajalibertybuilders.com
+        </p>
+      </div>
+
+      <div class="footer">
+        © 2026 Baja Liberty Builders · All Rights Reserved
+      </div>
+    </div>
+  </body>
+</html>

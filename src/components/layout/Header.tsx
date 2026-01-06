@@ -40,7 +40,7 @@ export default function Header() {
               className="flex items-center gap-3 group transition-transform hover:scale-105"
             >
               <div className="w-15 h-13 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-xl">BLC</span>
+                <span className="text-white font-bold text-xl">LCB</span>
               </div>
               <div className="hidden sm:block">
                 <div
@@ -48,7 +48,7 @@ export default function Header() {
                     isScrolled ? "text-gray-900" : "text-white"
                   }`}
                 >
-                  Baja Liberty Builders
+                  Liberty Construction Baja
                 </div>
                 <div
                   className={`text-xs transition-colors ${

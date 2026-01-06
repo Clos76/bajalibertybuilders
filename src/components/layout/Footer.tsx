@@ -80,11 +80,11 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-xl">BC</span>
+                <span className="text-white font-bold text-xl">LCB</span>
               </div>
               <div>
                 <div className="font-bold text-lg text-white">
-                  Baja Construction
+                  Liberty Construction Baja
                 </div>
                 <div className="text-xs text-gray-400">
                   Custom Coastal Homes
