@@ -33,17 +33,17 @@ const FAQ_CATEGORIES = [
       {
         question: "What is the typical total cost to build?",
         answer:
-          "Total construction costs vary based on size, design, and finish level. Most projects fall within the following ranges: Standard builds typically start around $100–$120 USD per square foot, upgraded builds average $140 USD per square foot, and premium custom homes begin at $160+ USD per square foot. These figures generally include design coordination, permits, and construction. Final pricing depends on architectural complexity, site conditions, and selected finishes. We provide detailed, itemized estimates upfront with no hidden fees, and all pricing is quoted in USD to protect you from currency fluctuations.",
+          "Total construction costs vary based on size, design, and finish level. Most projects fall within the following ranges: Standard builds typically start around $120–$140 USD per square foot, upgraded builds average $140 USD per square foot, and premium custom homes begin at $160+ USD per square foot. These figures generally include design coordination, permits, and construction. Final pricing depends on architectural complexity, site conditions, and selected finishes. We provide detailed, itemized estimates upfront with no hidden fees, and all pricing is quoted in USD to protect you from currency fluctuations.",
       },
       {
         question: "Are there ongoing costs I should know about?",
         answer:
-          "Yes — and we’re completely transparent about them. Annual costs include fideicomiso renewal (typically $500–$800/year), property taxes (predial, usually a few hundred dollars annually even on higher-value homes in Rosarito), utilities (electric, water, internet averaging $200–$400/month), and homeowners insurance ($600–$1,200/year). If you’re in a gated community, HOA fees may run $100–$400/month.",
+          "Yes — and we’re completely transparent about them. Annual costs include fideicomiso renewal (typically $500–$800/year), property taxes (predial, usually a few hundred dollars annually even on higher-value homes in Rosarito), utilities (electric, water, internet averaging $200–$400/month), and homeowners insurance ($600–$1,200/year). If you’re in a gated community, HOA fees may run $100–$400/month. You or your property manager can handle these.",
       },
       {
         question: "Do you offer financing options?",
         answer:
-          "While Mexican banks don't typically offer mortgages to foreigners for construction, we work with several U.S. and Canadian lenders who specialize in international property financing. Many of our clients also use home equity lines of credit, 401k loans, or cash from property sales. We can connect you with financial advisors experienced in cross-border real estate to explore your best options.",
+          "At the moment we do not offer building financing options. Many of our clients also use home equity lines of credit, 401k loans, or cash from property sales. Please speak to your financial advisors for loans in cross-border real estate to explore your best options.",
       },
     ],
   },
@@ -65,7 +65,7 @@ const FAQ_CATEGORIES = [
       {
         question: "What if I want to make changes during construction?",
         answer:
-          "Changes happen, and we have a clear process for them. All change requests are documented with a detailed scope, cost impact (if any), and timeline adjustment. You'll receive a written change order to approve before any work proceeds. We provide a contingency allowance (typically 5-10% of construction budget) for minor adjustments. Our transparent change-order system protects both parties and prevents surprises at the end.",
+          "Changes happen, and we have a clear process for them. All change requests are documented with a detailed scope, cost impact (if any), and timeline adjustment. You'll receive a written change order to approve before any work proceeds. These changes are addressed on an individual basis. Changes are paid for at the time of change. Our transparent change-order system protects both parties and prevents surprises at the end.",
       },
     ],
   },
@@ -77,12 +77,12 @@ const FAQ_CATEGORIES = [
       {
         question: "What warranties are included?",
         answer:
-          "We provide comprehensive warranty coverage: 10-year structural warranty on foundation, framing, and load-bearing elements; 5-year warranty on roofing, plumbing, and electrical systems; 2-year warranty on finishes, fixtures, and appliances; and 1-year full warranty on all workmanship and materials. We also provide manufacturer warranties on all major systems (HVAC, water heaters, appliances). Post-completion, we offer a 60-day punch-list period to address any minor items, and we conduct 6-month and 1-year follow-up inspections.",
+          "We provide comprehensive warranty coverage: 3-year general structural and workmenship; Warranty on finishes, fixtures, and appliances; 3 year warranty on all workmanship and materials. Appliences hold their manufacturer warranties (HVAC, water heaters, appliances). Post-completion, we offer a 60-day punch-list period to address any minor items, and we conduct 6-month and 1-year follow-up inspections.",
       },
       {
         question: "How do you ensure North American quality standards?",
         answer:
-          "We build to meet or exceed U.S./Canadian building codes, not just Mexican minimums. This includes: hurricane-rated windows and doors, proper insulation and vapor barriers, seismic engineering for earthquake zones, U.S.-grade electrical systems (120V), quality plumbing with proper venting, and energy-efficient HVAC systems. We use third-party inspectors at key milestones and import critical materials from the U.S. when necessary to ensure quality. Our construction supervisors are trained in North American building practices.",
+          "We build to meet or exceed U.S./Canadian building codes, not just Mexican minimums. This includes: windows and doors, proper insulation and vapor barriers, seismic engineering for earthquake zones, U.S.-grade electrical systems (120V), quality plumbing with proper venting, and energy-efficient HVAC systems. We use third-party inspectors at key milestones and import critical materials from the U.S. when necessary to ensure quality. Our construction supervisors are trained in North American building practices.",
       },
       {
         question: "What happens if there's an issue after I move in?",

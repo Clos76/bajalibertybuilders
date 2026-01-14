@@ -18,6 +18,7 @@ export default function Header() {
 
   const navLinks = [
     { label: "Portfolio", href: "#portfolio" },
+    { label: "Baja", href: "#foreign-buyers" },
     { label: "Process", href: "#process" },
     { label: "Stories", href: "#testimonials" },
     { label: "FAQ", href: "#faq" },

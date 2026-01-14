@@ -248,10 +248,10 @@ export default function Testimonials() {
           <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200 text-center">
             <div className="text-4xl mb-3">🤝</div>
             <div className="font-bold text-lg text-gray-900 mb-2">
-              10-Year Warranty
+              3-Year Warranty
             </div>
             <div className="text-sm text-gray-600">
-              Comprehensive coverage on structural work
+              Comprehensive coverage on structural and general workmenship
             </div>
           </div>
         </div>
@@ -263,8 +263,8 @@ export default function Testimonials() {
               Ready to Start Your Journey?
             </h3>
             <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-              Join 200+ satisfied homeowners who trusted us with their Baja
-              dream home
+              Join satisfied homeowners who trusted us with their Baja dream
+              home
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-lg rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">

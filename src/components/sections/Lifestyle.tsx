@@ -42,7 +42,10 @@ export default function Lifestyle() {
   const [activePoint, setActivePoint] = useState(0);
 
   return (
-    <section className="py-16 sm:py-20 lg:py-28 bg-gradient-to-b from-gray-50 via-white to-gray-50">
+    <section
+      id="lifestyle"
+      className="py-16 sm:py-20 lg:py-28 bg-gradient-to-b from-gray-50 via-white to-gray-50"
+    >
       <Container>
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">

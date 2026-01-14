@@ -5,7 +5,8 @@ const TRUST_ITEMS = [
   {
     icon: "🇺🇸",
     title: "Built for U.S. & Canadian Buyers",
-    subtitle: "Bilingual team • Full legal support • Remote oversight",
+    subtitle:
+      "Bilingual team • Full Building Permit support • Remote oversight",
     accent: "from-blue-500 to-indigo-600",
   },
   {
@@ -52,7 +53,7 @@ const STATS = [
 ];
 
 const CREDENTIALS = [
-  { icon: "✅", text: "Licensed & Insured" },
+  { icon: "✅", text: "US Licensed & Insured" },
   { icon: "🛡️", text: "Full Warranty Coverage" },
   // { icon: "🏆", text: "A+ BBB Rating" },
   { icon: "📋", text: "Permit Specialists" },

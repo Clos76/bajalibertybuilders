@@ -50,7 +50,7 @@ export default function AboutSection() {
             {/* Floating Badge */}
             <div className="absolute -top-6 -right-6 bg-gradient-to-br from-amber-500 to-orange-600 text-white rounded-2xl p-6 shadow-2xl rotate-3 hover:rotate-0 transition-transform">
               <div className="text-center">
-                <div className="text-3xl font-bold">Licensed</div>
+                <div className="text-3xl font-bold">CA Licensed</div>
                 <div className="text-sm">& Insured</div>
               </div>
             </div>
@@ -120,7 +120,7 @@ export default function AboutSection() {
             {/* Key Differentiators */}
             <div className="grid sm:grid-cols-2 gap-4 mb-8">
               {[
-                { icon: "⚖️", text: "Complete Legal Support" },
+                { icon: "⚖️", text: "Complete Build Permit Support" },
                 { icon: "💰", text: "Fixed USD Pricing" },
                 { icon: "🇺🇸", text: "Bilingual Team" },
                 { icon: "📸", text: "Bi-Weekly Updates" },

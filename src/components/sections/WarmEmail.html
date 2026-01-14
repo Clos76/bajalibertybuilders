@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      Your Baja Home Building Guide - {{ $json.lead_name || 'there' }}
+      Your Baja Home Building Resources - {{ $json.lead_name || 'there' }}
     </title>
   </head>
   <body
@@ -21,13 +21,13 @@
     <!-- Header -->
     <div
       style="
-        background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
         padding: 40px 20px;
         text-align: center;
       "
     >
       <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 700">
-        📚 Your Baja Home Building Guide
+        🌊 Welcome to Your Baja Building Journey
       </h1>
       <p
         style="
@@ -36,10 +36,9 @@
           font-size: 16px;
         "
       >
-        Everything you need to know before you build
+        Start exploring at your own pace
       </p>
     </div>
-
     <!-- Main Content -->
     <div
       style="
@@ -55,46 +54,39 @@
           Hi <strong>{{ $json.lead_name || 'there' }}</strong>,
         </p>
         <p style="margin: 0 0 15px 0">
-          Thank you for requesting our Ultimate Guide to Building a Custom Home
-          in Baja! I'm excited to share this resource with you.
+          Thanks for your interest in building a custom home in Baja California!
+          Whether you're just beginning to explore the idea or gathering
+          information for the future, I'm glad you're here.
         </p>
         <p style="margin: 0">
-          Based on your interest in a
-          <strong
-            >{{ $json.lead_custom_fields.homeSize || 'custom' }}-bedroom {{
-            $json.lead_custom_fields.style === 'california' ? 'California
-            Contemporary' : $json.lead_custom_fields.style === 'mediterranean' ?
-            'Mediterranean Villa' : $json.lead_custom_fields.style === 'modern'
-            ? 'Modern Minimalist' : $json.lead_custom_fields.style ===
-            'traditional' ? 'Traditional Mexican' : 'custom' }} home</strong
-          >, I've included some additional insights below that might be
-          particularly helpful.
+          Building a home—especially in a different country—is a big decision
+          that deserves careful research. I've put together some resources to
+          help you learn at your own pace, with no pressure or timeline.
         </p>
       </div>
-
       <!-- Download CTA -->
       <div
         style="
-          background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-          border: 2px solid #f59e0b;
+          background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+          border: 2px solid #3b82f6;
           padding: 25px;
           border-radius: 12px;
           margin: 30px 0;
           text-align: center;
         "
       >
-        <h3 style="margin: 0 0 15px 0; color: #92400e; font-size: 22px">
-          📥 Download Your Guide
+        <h3 style="margin: 0 0 15px 0; color: #1e3a8a; font-size: 22px">
+          📥 Get Your Free Guide
         </h3>
-        <p style="margin: 0 0 20px 0; color: #78350f">
-          Get instant access to the complete 40-page guide with everything North
-          American and foreign buyers need to know.
+        <p style="margin: 0 0 20px 0; color: #1e40af">
+          Start with our comprehensive 40-page guide that covers everything from
+          legal basics to design options.
         </p>
         <a
-          href="https://bajalibertybuilders.com/guide-download"
+          href="{{ $json.lead_custom_fields.brochure_url }}"
           style="
             display: inline-block;
-            background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             color: white;
             padding: 16px 40px;
             text-decoration: none;
@@ -104,292 +96,181 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           "
         >
-          Download Now (PDF)
+          Download the Guide (PDF)
         </a>
       </div>
-
-      <!-- What's Inside -->
+      <!-- Starting Point -->
       <h2
         style="
           color: #1a202c;
-          border-bottom: 3px solid #f59e0b;
+          border-bottom: 3px solid #3b82f6;
           padding-bottom: 10px;
           margin: 30px 0 20px 0;
         "
       >
-        What's Inside Your Guide
+        Where to Start
       </h2>
-
+      <p style="color: #4a5568; margin-bottom: 20px">
+        Based on your responses, here's what might be most helpful to explore
+        first:
+      </p>
       <div style="margin: 20px 0">
+        <!-- Conditional content based on what they need to learn about -->
+        {{ $json.lead_custom_fields.lotOwnership === 'need_help' ||
+        $json.lead_custom_fields.lotOwnership === 'no' ? '
         <div
           style="
-            display: flex;
-            align-items: start;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f7fafc;
+            background-color: #f0f9ff;
+            padding: 20px;
             border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3b82f6;
           "
         >
-          <div style="font-size: 24px; margin-right: 15px">💰</div>
-          <div>
-            <h4 style="margin: 0 0 5px 0; color: #1a202c">
-              Cost Breakdown vs California
-            </h4>
-            <p style="margin: 0; color: #4a5568; font-size: 14px">
-              Real numbers comparing Baja construction costs to Southern
-              California. You'll see potential savings of 40-60% on comparable
-              properties.
-            </p>
-          </div>
+          <h4 style="margin: 0 0 10px 0; color: #1e3a8a">
+            🗺️ Understanding Land Acquisition
+          </h4>
+          <p style="margin: 0; color: #1e40af; font-size: 14px">
+            Since you\'re still exploring land options, Chapter 2 of the guide
+            covers how to find, evaluate, and purchase property in Baja. You\'ll
+            learn about location factors, zoning, utilities, and what to look
+            for.
+          </p>
         </div>
-
+        ' : '' }} {{ $json.lead_custom_fields.budget === 'unsure' ||
+        !$json.lead_custom_fields.budget ? '
         <div
           style="
-            display: flex;
-            align-items: start;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f7fafc;
+            background-color: #f0f9ff;
+            padding: 20px;
             border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3b82f6;
           "
         >
-          <div style="font-size: 24px; margin-right: 15px">⚖️</div>
-          <div>
-            <h4 style="margin: 0 0 5px 0; color: #1a202c">
-              Legal Ownership Explained
-            </h4>
-            <p style="margin: 0; color: #4a5568; font-size: 14px">
-              Clear, jargon-free explanation of fideicomiso (bank trust),
-              property rights, and how foreign ownership actually works in
-              Mexico.
-            </p>
-          </div>
+          <h4 style="margin: 0 0 10px 0; color: #1e3a8a">
+            💰 Budget Planning Basics
+          </h4>
+          <p style="margin: 0; color: #1e40af; font-size: 14px">
+            Not sure what things cost? Chapter 3 breaks down real numbers for
+            different home sizes and styles, plus all the "hidden" costs people
+            often forget about (utilities hookups, landscaping, furnishing,
+            etc.).
+          </p>
         </div>
-
+        ' : '' }} {{ $json.lead_custom_fields.timeline === 'exploring' ||
+        $json.lead_custom_fields.timeline === 'planning' ||
+        $json.lead_custom_fields.timeline === '12+' ? '
         <div
           style="
-            display: flex;
-            align-items: start;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f7fafc;
+            background-color: #f0f9ff;
+            padding: 20px;
             border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3b82f6;
           "
         >
-          <div style="font-size: 24px; margin-right: 15px">🏗️</div>
-          <div>
-            <h4 style="margin: 0 0 5px 0; color: #1a202c">
-              Design & Style Options
-            </h4>
-            <p style="margin: 0; color: #4a5568; font-size: 14px">
-              Photo examples of California Contemporary, Mediterranean, Modern
-              Minimalist, and Traditional Mexican styles with cost implications.
-            </p>
-          </div>
+          <h4 style="margin: 0 0 10px 0; color: #1e3a8a">
+            ⏱️ Timeline & Process Overview
+          </h4>
+          <p style="margin: 0; color: #1e40af; font-size: 14px">
+            Since you\'re in the early planning stages, Chapter 6 walks through
+            the entire 10-14 month process step-by-step, so you know exactly
+            what to expect and when.
+          </p>
         </div>
-
+        ' : '' }}
         <div
           style="
-            display: flex;
-            align-items: start;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f7fafc;
+            background-color: #f0f9ff;
+            padding: 20px;
             border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3b82f6;
           "
         >
-          <div style="font-size: 24px; margin-right: 15px">⏱️</div>
-          <div>
-            <h4 style="margin: 0 0 5px 0; color: #1a202c">
-              Timeline Expectations
-            </h4>
-            <p style="margin: 0; color: #4a5568; font-size: 14px">
-              Month-by-month breakdown of the typical 10-14 month process from
-              design to move-in, including permit timelines.
-            </p>
-          </div>
+          <h4 style="margin: 0 0 10px 0; color: #1e3a8a">
+            ⚖️ Legal & Ownership 101
+          </h4>
+          <p style="margin: 0; color: #1e40af; font-size: 14px">
+            One of the most common questions: "Can I actually own property in
+            Mexico?" Chapter 4 explains fideicomiso (bank trust) in plain
+            English, plus all your legal protections as a foreign buyer.
+          </p>
         </div>
-
         <div
           style="
-            display: flex;
-            align-items: start;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f7fafc;
+            background-color: #f0f9ff;
+            padding: 20px;
             border-radius: 8px;
+            border-left: 4px solid #3b82f6;
           "
         >
-          <div style="font-size: 24px; margin-right: 15px">⚠️</div>
-          <div>
-            <h4 style="margin: 0 0 5px 0; color: #1a202c">
-              Common Mistakes to Avoid
-            </h4>
-            <p style="margin: 0; color: #4a5568; font-size: 14px">
-              Learn from the experiences of dozens of homeowners who've already
-              built. What they wish they'd known from day one.
-            </p>
-          </div>
-        </div>
-
-        <div
-          style="
-            display: flex;
-            align-items: start;
-            padding: 15px;
-            background-color: #f7fafc;
-            border-radius: 8px;
-          "
-        >
-          <div style="font-size: 24px; margin-right: 15px">📋</div>
-          <div>
-            <h4 style="margin: 0 0 5px 0; color: #1a202c">
-              Complete Planning Checklist
-            </h4>
-            <p style="margin: 0; color: #4a5568; font-size: 14px">
-              Step-by-step guide you can follow from initial concept through
-              design, permitting, construction, and final move-in.
-            </p>
-          </div>
+          <h4 style="margin: 0 0 10px 0; color: #1e3a8a">
+            🏗️ Design Inspiration
+          </h4>
+          <p style="margin: 0; color: #1e40af; font-size: 14px">
+            {{ $json.lead_custom_fields.style ? 'You mentioned interest in ' +
+            ($json.lead_custom_fields.style === 'california' ? 'California
+            Contemporary' : $json.lead_custom_fields.style === 'mediterranean' ?
+            'Mediterranean Villa' : $json.lead_custom_fields.style === 'modern'
+            ? 'Modern Minimalist' : $json.lead_custom_fields.style ===
+            'traditional' ? 'Traditional Mexican' : 'custom') + ' style. Chapter
+            5 has photo examples and details about different architectural
+            styles popular in Baja.' : 'Chapter 5 showcases different
+            architectural styles popular in Baja—California Contemporary,
+            Mediterranean, Modern, and Traditional Mexican—with real photos and
+            cost considerations.' }}
+          </p>
         </div>
       </div>
-
-      <!-- Personalized Insight -->
-      <div
+      <!-- Realistic Expectations -->
+      <h2
         style="
-          background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-          border-left: 5px solid #3b82f6;
-          padding: 20px;
-          border-radius: 8px;
-          margin: 30px 0;
+          color: #1a202c;
+          border-bottom: 3px solid #3b82f6;
+          padding-bottom: 10px;
+          margin: 30px 0 20px 0;
         "
       >
-        <h3 style="margin: 0 0 10px 0; color: #1e3a8a">
-          💡 Based on Your Project
-        </h3>
-        <p style="margin: 0 0 10px 0; color: #1e40af">
-          Since you're interested in a
-          <strong
-            >{{ $json.lead_custom_fields.homeSize || 'custom' }}-bedroom
-            home</strong
-          >
-          with a
-          <strong
-            >${{ $json.lead_custom_fields.budget || 'custom' }} budget</strong
-          >, pay special attention to:
+        What You Should Know Upfront
+      </h2>
+      <div
+        style="
+          background-color: #fffbeb;
+          padding: 20px;
+          border-radius: 8px;
+          margin: 20px 0;
+          border: 1px solid #fbbf24;
+        "
+      >
+        <p style="margin: 0 0 15px 0; color: #78350f">
+          <strong>Building in Baja isn't for everyone—and that's okay.</strong>
+          Here's what's important to understand from the start:
         </p>
-        <ul style="margin: 10px 0; padding-left: 20px; color: #1e40af">
-          <li style="margin-bottom: 8px">
-            Chapter 3: Budget ranges and what to expect at different price
-            points
+        <ul style="margin: 10px 0 0 0; padding-left: 20px; color: #78350f">
+          <li style="margin-bottom: 10px">
+            This is a significant investment of time, money, and energy
           </li>
-          <li style="margin-bottom: 8px">
-            Chapter 5: {{ $json.lead_custom_fields.style === 'california' ?
-            'California Contemporary design elements and their costs' :
-            $json.lead_custom_fields.style === 'mediterranean' ? 'Mediterranean
-            Villa features and traditional details' : 'Design style
-            considerations and customization options' }}
+          <li style="margin-bottom: 10px">
+            You'll need patience for permitting, construction, and occasional
+            delays
           </li>
-          <li style="margin-bottom: 8px">
-            {{ $json.lead_custom_fields.lotOwnership === 'yes' ? 'Chapter 7:
-            Site evaluation and preparation for existing lots' :
-            $json.lead_custom_fields.lotOwnership === 'looking' ? 'Chapter 2:
-            Land acquisition process and what to look for' : 'Chapter 2: Finding
-            the right lot and land acquisition basics' }}
+          <li style="margin-bottom: 10px">
+            There's a learning curve for working in a different country and
+            legal system
+          </li>
+          <li style="margin-bottom: 10px">
+            You should be comfortable with some level of uncertainty and
+            flexibility
+          </li>
+          <li>
+            But if you're up for the journey, the rewards—a custom beachfront
+            home at a fraction of California costs—are incredible
           </li>
         </ul>
       </div>
-
-      <!-- Quick Reference -->
-      <h2
-        style="
-          color: #1a202c;
-          border-bottom: 3px solid #f59e0b;
-          padding-bottom: 10px;
-          margin: 30px 0 20px 0;
-        "
-      >
-        Quick Reference: Key Numbers
-      </h2>
-
-      <div
-        style="
-          background-color: #f7fafc;
-          padding: 20px;
-          border-radius: 8px;
-          margin-bottom: 25px;
-        "
-      >
-        <table style="width: 100%; border-collapse: collapse">
-          <tr>
-            <td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0">
-              <strong style="color: #4a5568">Average Cost per Sq Ft:</strong>
-            </td>
-            <td
-              style="
-                padding: 10px 0;
-                border-bottom: 1px solid #e2e8f0;
-                text-align: right;
-              "
-            >
-              $180-$350 (vs $500-$800 in CA)
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0">
-              <strong style="color: #4a5568">Typical Timeline:</strong>
-            </td>
-            <td
-              style="
-                padding: 10px 0;
-                border-bottom: 1px solid #e2e8f0;
-                text-align: right;
-              "
-            >
-              10-14 months from design to completion
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0">
-              <strong style="color: #4a5568">Fideicomiso Setup:</strong>
-            </td>
-            <td
-              style="
-                padding: 10px 0;
-                border-bottom: 1px solid #e2e8f0;
-                text-align: right;
-              "
-            >
-              $1,500-$2,500 initial + ~$500/year
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0">
-              <strong style="color: #4a5568">Permit Timeframe:</strong>
-            </td>
-            <td
-              style="
-                padding: 10px 0;
-                border-bottom: 1px solid #e2e8f0;
-                text-align: right;
-              "
-            >
-              4-8 weeks typically
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 10px 0">
-              <strong style="color: #4a5568">Recommended Budget Buffer:</strong>
-            </td>
-            <td style="padding: 10px 0; text-align: right">
-              10-15% above base construction cost
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <!-- Case Study Callout -->
+      <!-- Real Story -->
       <div
         style="
           border-left: 4px solid #10b981;
@@ -401,17 +282,149 @@
         "
       >
         <h4 style="margin: 0 0 10px 0; color: #065f46">
-          📖 Featured in the Guide: The Martinez Family Story
+          💬 From Someone Who Was Where You Are
         </h4>
-        <p style="margin: 0; color: #047857; font-size: 14px">
-          San Diego residents who built a 3-bedroom California Contemporary home
-          in Rosarito. Total cost: $425K for 2,400 sq ft including pool and
-          ocean views. The same home in San Diego County would have cost $1.2M+.
-          Read their complete journey in Chapter 9.
+        <p
+          style="
+            margin: 0 0 10px 0;
+            color: #047857;
+            font-size: 14px;
+            font-style: italic;
+          "
+        >
+          "We spent almost a year just researching before we committed.
+          Downloaded every guide, read every forum post, talked to other expats.
+          When we finally decided to move forward, we felt confident because we
+          knew exactly what we were getting into. Best decision we ever made."
+        </p>
+        <p style="margin: 0; color: #065f46; font-size: 14px">
+          — Jennifer & Mike, Portland, OR → Rosarito, BC
         </p>
       </div>
-
-      <!-- Optional Consultation -->
+      <!-- Learning Resources -->
+      <h2
+        style="
+          color: #1a202c;
+          border-bottom: 3px solid #3b82f6;
+          padding-bottom: 10px;
+          margin: 30px 0 20px 0;
+        "
+      >
+        Continue Learning
+      </h2>
+      <div
+        style="
+          background-color: #f7fafc;
+          padding: 20px;
+          border-radius: 8px;
+          margin-bottom: 20px;
+        "
+      >
+        <h4 style="margin: 0 0 15px 0; color: #1a202c">
+          📚 Recommended Reading Order
+        </h4>
+        <ol
+          style="
+            color: #4a5568;
+            line-height: 1.8;
+            padding-left: 20px;
+            margin: 0;
+          "
+        >
+          <li style="margin-bottom: 10px">
+            Start with the <strong>Ultimate Guide</strong> (linked above) for
+            comprehensive overview
+          </li>
+          <li style="margin-bottom: 10px">
+            Browse our
+            <a
+              href="https://bajalibertybuilders.com/portfolio"
+              style="color: #3b82f6; text-decoration: none"
+              >project portfolio</a
+            >
+            to see what's possible
+          </li>
+          <li style="margin-bottom: 10px">
+            Read
+            <a
+              href="https://bajalibertybuilders.com/blog/first-time-builders"
+              style="color: #3b82f6; text-decoration: none"
+              >blog posts from first-time builders</a
+            >
+            sharing their experiences
+          </li>
+          <li style="margin-bottom: 10px">
+            Watch
+            <a
+              href="https://bajalibertybuilders.com/videos"
+              style="color: #3b82f6; text-decoration: none"
+              >construction time-lapses</a
+            >
+            to see the process in action
+          </li>
+          <li>
+            Check out the
+            <a
+              href="https://bajalibertybuilders.com/faq"
+              style="color: #3b82f6; text-decoration: none"
+              >FAQ page</a
+            >
+            for answers to common questions
+          </li>
+        </ol>
+      </div>
+      <!-- Common Early Questions -->
+      <div
+        style="
+          background-color: #f7fafc;
+          padding: 20px;
+          border-radius: 8px;
+          margin-bottom: 20px;
+        "
+      >
+        <h4 style="margin: 0 0 15px 0; color: #1a202c">
+          ❓ Questions People Ask at This Stage
+        </h4>
+        <div style="margin-bottom: 15px">
+          <p style="margin: 0 0 5px 0; color: #1a202c; font-weight: 600">
+            "How much can I really save vs. California?"
+          </p>
+          <p style="margin: 0; color: #4a5568; font-size: 14px">
+            Typically 40-60% on construction costs. A $400K build in Baja would
+            be $800K-$1.2M+ in coastal California for similar quality and size.
+          </p>
+        </div>
+        <div style="margin-bottom: 15px">
+          <p style="margin: 0 0 5px 0; color: #1a202c; font-weight: 600">
+            "Is it safe to buy property in Mexico?"
+          </p>
+          <p style="margin: 0; color: #4a5568; font-size: 14px">
+            Yes, with the fideicomiso system. It's been in place since 1973 and
+            provides strong legal protections. See Chapter 4 in the guide.
+          </p>
+        </div>
+        <div style="margin-bottom: 15px">
+          <p style="margin: 0 0 5px 0; color: #1a202c; font-weight: 600">
+            "Do I need to speak Spanish?"
+          </p>
+          <p style="margin: 0; color: #4a5568; font-size: 14px">
+            Helpful but not required. We're a bilingual team and handle all
+            contractor/official communications. Many of our clients speak
+            minimal Spanish.
+          </p>
+        </div>
+        <div>
+          <p style="margin: 0 0 5px 0; color: #1a202c; font-weight: 600">
+            "How often do I need to be on-site?"
+          </p>
+          <p style="margin: 0; color: #4a5568; font-size: 14px">
+            Depends on your preference. Some clients visit monthly, others rely
+            on our weekly photo/video updates and visit just 3-4 times during
+            the build.
+          </p>
+        </div>
+      </div>
+      <!-- No Pressure Contact -->
       <div
         style="
           background-color: #f7fafc;
@@ -421,154 +434,111 @@
           border: 1px solid #e2e8f0;
         "
       >
-        <h3 style="margin: 0 0 15px 0; color: #1a202c">
-          Questions After Reading?
-        </h3>
+        <h3 style="margin: 0 0 15px 0; color: #1a202c">💭 Have Questions?</h3>
         <p style="margin: 0 0 15px 0; color: #4a5568">
-          The guide covers everything comprehensively, but if you'd like to
-          discuss your specific situation or get answers tailored to your
-          project, I'm happy to chat.
+          I know you're in research mode, and that's smart. If questions come up
+          as you're reading or if something in the guide isn't clear, feel free
+          to reach out. I'm happy to answer questions with no expectation that
+          you're ready to move forward.
         </p>
-        <div style="text-align: center">
-          <a
-            href="https://calendly.com/bajaliberty"
-            style="
-              display: inline-block;
-              background-color: #ffffff;
-              color: #ea580c;
-              padding: 14px 35px;
-              text-decoration: none;
-              border-radius: 8px;
-              font-weight: 600;
-              font-size: 16px;
-              border: 2px solid #ea580c;
-              margin-right: 10px;
-            "
-          >
-            📅 Schedule a Free Call
-          </a>
-          <a
-            href="tel:+18587587768"
-            style="
-              display: inline-block;
-              background-color: #f7fafc;
-              color: #4a5568;
-              padding: 14px 35px;
-              text-decoration: none;
-              border-radius: 8px;
-              font-weight: 600;
-              font-size: 16px;
-              border: 2px solid #cbd5e0;
-            "
-          >
-            📞 (858) 758-7768
-          </a>
+        <div style="margin-bottom: 15px">
+          <p style="margin: 0 0 5px 0; color: #4a5568; font-size: 14px">
+            📧 Email:
+            <a
+              href="mailto:info@bajalibertybuilders.com"
+              style="color: #3b82f6; text-decoration: none"
+              >info@bajalibertybuilders.com</a
+            >
+          </p>
+          <p style="margin: 0; color: #4a5568; font-size: 14px">
+            📞 Phone:
+            <a
+              href="tel:+18587587768"
+              style="color: #3b82f6; text-decoration: none"
+              >(858) 758-7768</a
+            >
+          </p>
         </div>
         <p
-          style="
-            margin: 15px 0 0 0;
-            text-align: center;
-            color: #718096;
-            font-size: 14px;
-          "
+          style="margin: 0; color: #718096; font-size: 14px; font-style: italic"
         >
-          No pressure—only if you find it helpful
+          Just reply to this email or give me a call during normal business
+          hours. No sales pitch—just answers.
         </p>
       </div>
-
-      <!-- Additional Resources -->
-      <h3 style="color: #1a202c; margin: 30px 0 15px 0">📚 More Resources</h3>
-      <ul style="color: #4a5568; line-height: 1.8; padding-left: 20px">
-        <li style="margin-bottom: 10px">
-          Browse our
-          <a
-            href="https://bajalibertybuilders.com/portfolio"
-            style="color: #ea580c; text-decoration: none"
-            >completed project gallery</a
-          >
-          for design inspiration
-        </li>
-        <li style="margin-bottom: 10px">
-          Read
-          <a
-            href="https://bajalibertybuilders.com/blog"
-            style="color: #ea580c; text-decoration: none"
-            >recent blog posts</a
-          >
-          about building in Baja
-        </li>
-        <li style="margin-bottom: 10px">
-          Check out our
-          <a
-            href="https://bajalibertybuilders.com/faq"
-            style="color: #ea580c; text-decoration: none"
-            >FAQ page</a
-          >
-          for quick answers
-        </li>
-        <li>
-          Watch
-          <a
-            href="https://bajalibertybuilders.com/videos"
-            style="color: #ea580c; text-decoration: none"
-            >construction time-lapse videos</a
-          >
-          of homes being built
-        </li>
-      </ul>
-
-      <!-- Personal Note -->
+      <!-- Educational Email Series -->
+      <div
+        style="
+          background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+          padding: 20px;
+          border-radius: 8px;
+          margin: 30px 0;
+        "
+      >
+        <h4 style="margin: 0 0 10px 0; color: #92400e">📮 Stay in Touch</h4>
+        <p style="margin: 0 0 15px 0; color: #78350f">
+          Over the next few weeks, I'll send you occasional emails with:
+        </p>
+        <ul style="margin: 0; padding-left: 20px; color: #78350f">
+          <li style="margin-bottom: 8px">
+            In-depth articles on specific topics (legal, design, budgeting)
+          </li>
+          <li style="margin-bottom: 8px">
+            Real stories from homeowners who've built in Baja
+          </li>
+          <li style="margin-bottom: 8px">
+            Updates on market trends and construction costs
+          </li>
+          <li>Answers to questions we get most often</li>
+        </ul>
+        <p style="margin: 15px 0 0 0; font-size: 14px; color: #78350f">
+          No spam, no constant selling. Just helpful information when you're
+          ready for it. You can unsubscribe anytime.
+        </p>
+      </div>
+      <!-- Take Your Time -->
       <div
         style="
           margin: 30px 0;
           padding: 20px;
-          background-color: #fffbeb;
+          background-color: #f0f9ff;
           border-radius: 8px;
+          border: 1px solid #3b82f6;
         "
       >
-        <p style="margin: 0 0 15px 0; color: #78350f">
-          <strong>{{ $json.lead_name }}</strong>, I know researching a home
-          build in a foreign country can feel overwhelming. That's exactly why
-          we created this guide—to give you clarity and confidence.
+        <p style="margin: 0 0 15px 0; color: #1e40af">
+          <strong>{{ $json.lead_name }}</strong>, there's absolutely no rush
+          here. Some of our happiest clients spent 6-12 months researching
+          before they committed. Others decided quickly. Both approaches
+          work—it's about what feels right for you.
         </p>
-        <p style="margin: 0 0 15px 0; color: #78350f">
-          Take your time reading through it. If questions come up or you want to
-          discuss your {{ $json.lead_custom_fields.homeSize }}-bedroom {{
-          $json.lead_custom_fields.style === 'california' ? 'California
-          Contemporary' : 'custom' }} home vision, just hit reply to this email
-          or give me a call.
+        <p style="margin: 0 0 15px 0; color: #1e40af">
+          {{ $json.lead_custom_fields.homeSize ? 'Your interest in a ' +
+          $json.lead_custom_fields.homeSize + '-bedroom home tells me you\'re
+          thinking seriously about this. ' : '' }}Take your time exploring the
+          guide and resources. If and when you're ready to talk specifics, I'm
+          here.
         </p>
-        <p style="margin: 0; color: #92400e; font-weight: 600">
+        <p style="margin: 0; color: #1e3a8a; font-weight: 600">
           — The Baja Liberty Builders Team
         </p>
       </div>
-
-      <!-- Footer Message -->
+      <!-- P.S. -->
       <div
         style="
           text-align: center;
           margin: 30px 0;
-          padding: 20px;
-          background-color: #f7fafc;
+          padding: 15px;
+          background-color: #fffbeb;
           border-radius: 8px;
-          border: 1px solid #e2e8f0;
         "
       >
-        <p style="margin: 0 0 10px 0; color: #4a5568">
-          <strong>P.S.</strong> Don't forget to download the guide using the
-          button at the top of this email!
-        </p>
-        <p style="margin: 0; color: #718096; font-size: 14px">
-          Reply anytime with questions:
-          <a
-            href="mailto:info@bajalibertybuilders.com"
-            style="color: #ea580c; text-decoration: none"
-            >info@bajalibertybuilders.com</a
-          >
+        <p style="margin: 0; color: #78350f; font-size: 14px">
+          <strong>P.S.</strong> Bookmark this email—it has all the key links
+          you'll want to reference as you research.
         </p>
       </div>
     </div>
-
     <!-- Footer -->
     <div
       style="
@@ -579,7 +549,7 @@
       "
     >
       <div style="margin-bottom: 15px">
-        <strong style="color: #f59e0b; font-size: 18px"
+        <strong style="color: #3b82f6; font-size: 18px"
           >Baja Liberty Builders</strong
         >
       </div>
@@ -589,26 +559,38 @@
       <div style="margin-bottom: 15px">
         <a
           href="https://bajalibertybuilders.com"
-          style="color: #f59e0b; text-decoration: none; margin: 0 10px"
+          style="color: #3b82f6; text-decoration: none; margin: 0 10px"
           >Website</a
         >
         <span style="color: #4a5568">|</span>
         <a
-          href="tel:+18587587768"
-          style="color: #f59e0b; text-decoration: none; margin: 0 10px"
-          >Phone</a
+          href="https://bajalibertybuilders.com/portfolio"
+          style="color: #3b82f6; text-decoration: none; margin: 0 10px"
+          >Portfolio</a
+        >
+        <span style="color: #4a5568">|</span>
+        <a
+          href="https://bajalibertybuilders.com/blog"
+          style="color: #3b82f6; text-decoration: none; margin: 0 10px"
+          >Blog</a
         >
         <span style="color: #4a5568">|</span>
         <a
           href="mailto:info@bajalibertybuilders.com"
-          style="color: #f59e0b; text-decoration: none; margin: 0 10px"
+          style="color: #3b82f6; text-decoration: none; margin: 0 10px"
           >Email</a
         >
       </div>
-      <div style="font-size: 12px; color: #718096">
+      <div style="font-size: 12px; color: #718096; margin-bottom: 10px">
         {{ $json.lead_email }} · Subscribed to Baja home building resources
       </div>
-      <div style="margin-top: 10px">
+      <div>
+        <a
+          href="#"
+          style="color: #718096; text-decoration: none; font-size: 12px"
+          >Update preferences</a
+        >
+        <span style="color: #4a5568; margin: 0 5px">|</span>
         <a
           href="#"
           style="color: #718096; text-decoration: none; font-size: 12px"

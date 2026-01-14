@@ -39,7 +39,6 @@
         Start exploring at your own pace
       </p>
     </div>
-
     <!-- Main Content -->
     <div
       style="
@@ -65,7 +64,6 @@
           help you learn at your own pace, with no pressure or timeline.
         </p>
       </div>
-
       <!-- Download CTA -->
       <div
         style="
@@ -85,7 +83,7 @@
           legal basics to design options.
         </p>
         <a
-          href="https://bajalibertybuilders.com/guide-download"
+          href="{{ $json.lead_custom_fields.brochure_url }}"
           style="
             display: inline-block;
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
@@ -101,7 +99,6 @@
           Download the Guide (PDF)
         </a>
       </div>
-
       <!-- Starting Point -->
       <h2
         style="
@@ -113,12 +110,10 @@
       >
         Where to Start
       </h2>
-
       <p style="color: #4a5568; margin-bottom: 20px">
         Based on your responses, here's what might be most helpful to explore
         first:
       </p>
-
       <div style="margin: 20px 0">
         <!-- Conditional content based on what they need to learn about -->
         {{ $json.lead_custom_fields.lotOwnership === 'need_help' ||
@@ -185,7 +180,6 @@
           </p>
         </div>
         ' : '' }}
-
         <div
           style="
             background-color: #f0f9ff;
@@ -204,7 +198,6 @@
             English, plus all your legal protections as a foreign buyer.
           </p>
         </div>
-
         <div
           style="
             background-color: #f0f9ff;
@@ -231,7 +224,6 @@
           </p>
         </div>
       </div>
-
       <!-- Realistic Expectations -->
       <h2
         style="
@@ -243,7 +235,6 @@
       >
         What You Should Know Upfront
       </h2>
-
       <div
         style="
           background-color: #fffbeb;
@@ -279,7 +270,6 @@
           </li>
         </ul>
       </div>
-
       <!-- Real Story -->
       <div
         style="
@@ -311,7 +301,6 @@
           — Jennifer & Mike, Portland, OR → Rosarito, BC
         </p>
       </div>
-
       <!-- Learning Resources -->
       <h2
         style="
@@ -323,7 +312,6 @@
       >
         Continue Learning
       </h2>
-
       <div
         style="
           background-color: #f7fafc;
@@ -385,7 +373,6 @@
           </li>
         </ol>
       </div>
-
       <!-- Common Early Questions -->
       <div
         style="
@@ -437,7 +424,6 @@
           </p>
         </div>
       </div>
-
       <!-- No Pressure Contact -->
       <div
         style="
@@ -480,7 +466,6 @@
           hours. No sales pitch—just answers.
         </p>
       </div>
-
       <!-- Educational Email Series -->
       <div
         style="
@@ -511,7 +496,6 @@
           ready for it. You can unsubscribe anytime.
         </p>
       </div>
-
       <!-- Take Your Time -->
       <div
         style="
@@ -539,7 +523,6 @@
           — The Baja Liberty Builders Team
         </p>
       </div>
-
       <!-- P.S. -->
       <div
         style="
@@ -556,7 +539,6 @@
         </p>
       </div>
     </div>
-
     <!-- Footer -->
     <div
       style="

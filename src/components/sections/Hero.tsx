@@ -77,7 +77,7 @@ export default function Hero() {
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-2xl">
           {[
             { icon: "💰", text: "40% Less Than CA" },
-            { icon: "⚖️", text: "Full Building Support" },
+            { icon: "⚖️", text: "Full Building Permit Support" },
             { icon: "⏱️", text: "10-14 Month Build" },
           ].map((benefit, idx) => (
             <div

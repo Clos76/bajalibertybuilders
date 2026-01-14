@@ -6,8 +6,11 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { label: "Home", href: "#hero" },
+    { label: "Home", href: "/" },
+    { label: "About", href: "#about" },
     { label: "Portfolio", href: "#portfolio" },
+    { label: "Lifestyle", href: "#lifestyle" },
+    { label: "Baja", href: "#foreign-buyers" },
     { label: "Our Process", href: "#process" },
     { label: "Client Stories", href: "#testimonials" },
     { label: "FAQ", href: "#faq" },
@@ -201,7 +204,7 @@ export default function Footer() {
                   />
                 </svg>
               </div>
-              <span className="text-sm">info@bajaconstruction.com</span>
+              <span className="text-sm">bajalibertybuilders@gmail.com</span>
             </a>
 
             {/* Address */}

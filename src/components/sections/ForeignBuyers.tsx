@@ -15,9 +15,9 @@ const constructionImage = "/images/puntaPiedra/entry.jpg";
 const FEATURES = [
   {
     icon: "⚖️",
-    title: "Expert Guidance on Permits and Building",
+    title: "Expert Guidance on Building Permits",
     description:
-      "We handle the permits, and all legal requirements — ensuring you have full, secure rights to use, build, sell, or pass on your beachfront home.",
+      "We handle the permits and requirements — ensuring you have full rights to build on your beachfront home.",
     gradient: "from-blue-500 to-indigo-600",
     stat: "100% Secure",
   },
@@ -41,7 +41,7 @@ const FEATURES = [
     icon: "🏗️",
     title: "North American Quality Standards",
     description:
-      "We build to U.S./Canadian standards — hurricane-rated windows, insulation, and seismic engineering.",
+      "We build to U.S. standards —  We have a team of licensed architects and engineers to help build your home.",
     gradient: "from-orange-500 to-red-600",
     stat: "Premium Quality",
   },
@@ -88,7 +88,7 @@ const PROCESS_STEPS = [
   {
     number: "04",
     title: "Transparent Build",
-    description: "Monthly updates with photos and video walkthroughs",
+    description: "Bi-weekly updates with photos and video walkthroughs",
     duration: "10-14 months",
     icon: "🏗️",
   },
@@ -103,7 +103,7 @@ const COMMON_CONCERNS = [
   {
     concern: "What if I can't visit the site frequently?",
     answer:
-      "No problem. We provide Monthly video walkthroughs, live virtual meetings, and a dedicated project portal with photos and progress updates. Many of our clients successfully build from California, Canada, or beyond.",
+      "No problem. We provide Bi-weekly video walkthroughs, live virtual meetings, and a dedicated project portal with photos and progress updates. Many of our clients successfully build from California, Canada, or beyond.",
   },
   {
     concern: "How do payments work across the border?",
@@ -118,7 +118,7 @@ export default function ForeignBuyers() {
 
   return (
     <section
-      id="for-us-canadian-buyers"
+      id="foreign-buyers"
       className="relative bg-gradient-to-b from-amber-50 via-orange-100 to-white overflow-hidden"
     >
       {/* Enhanced Decorative Background */}
@@ -153,7 +153,7 @@ export default function ForeignBuyers() {
 
             <p className="text-lg sm:text-xl text-gray-700 mb-8 leading-relaxed">
               Building a beachfront home shouldn't feel overwhelming. We guide
-              U.S. and Foreign buyers through every step—from legal setup to
+              U.S. and Foreign buyers through every step—from permit setup to
               final walkthrough—with full transparency and zero surprises.
             </p>
 
