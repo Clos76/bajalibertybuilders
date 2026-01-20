@@ -25,7 +25,7 @@ const TESTIMONIALS = [
     image:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
     quote:
-      "As a Canadian buyer, I was nervous about the legal process and building remotely. The team handled everything—from fideicomiso setup to final walkthrough. They even helped me navigate currency exchange. The entire process took 13 months and came in under budget.",
+      "As a Canadian buyer, I was nervous about the legal process and building remotely. The team handled everything—from building permit setup to final walkthrough. They even helped me navigate currency exchange. The entire process took 13 months and came in under budget.",
     outcome: "4,200 sq ft Mediterranean Villa",
     videoUrl: null,
     rating: 5,
